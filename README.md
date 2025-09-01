@@ -3,8 +3,8 @@
 <div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/binoymanoj/tmux-minimal-theme)](https://github.com/binoymanoj/dotfiles/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/binoymanoj/tmux-minimal-theme)](https://github.com/binoymanoj/dotfiles/issues)
+[![GitHub stars](https://img.shields.io/github/stars/binoymanoj/dotfiles)](https://github.com/binoymanoj/dotfiles/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/binoymanoj/dotfiles)](https://github.com/binoymanoj/dotfiles/issues)
 
 *A carefully crafted collection of configuration files for a modern Linux desktop environment*
 
