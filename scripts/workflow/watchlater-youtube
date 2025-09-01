@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# script for opening youtube(watchlater) in a new tab (brave browser) # you can change the browser of choice
+
+# Brave profile
+PROFILE="Default"
+URL="https://www.youtube.com/playlist?list=WL"
+
+# Open the URL with Brave using the Default profile
+brave --profile-directory="$PROFILE" "$URL" &

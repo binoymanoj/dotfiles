@@ -1,0 +1,19 @@
+# Ghostty Configuration
+# Author: Binoy Manoj
+# GitHub: https://github.com/binoymanoj
+
+# ~/.config/ghostty/config
+
+theme = catppuccin-mocha
+
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 11
+cursor-style = "block"
+
+window-decoration = false
+background-opacity = 0.8
+background = "#000000"
+
+cursor-style = "block"
+window-padding-x = 5
+window-padding-y = 3

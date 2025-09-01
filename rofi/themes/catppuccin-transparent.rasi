@@ -1,0 +1,113 @@
+// Rofi Configuration
+// Author: Binoy Manoj
+// GitHub: https://github.com/binoymanoj
+
+* {
+    bg-col: #11111bcc;
+    bg-col-light: #313244;
+    border-col: #9199CB;
+    selected-col: #313244;
+    purple: #9199CB;
+    fg-col: #cdd6f4;
+    fg-col2: #9199CB;
+    width: 600px;
+}
+
+window {
+    transparency: "real";
+    background-color: @bg-col;
+    border: 2px;
+    border-color: @border-col;
+    border-radius: 15px;
+}
+
+mainbox {
+    background-color: transparent;
+}
+
+inputbar {
+    children: [prompt, entry];
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 2px;
+    margin: 0px 5px 0px 0px;
+}
+
+prompt {
+    background-color: @purple;
+    padding: 10px;
+    text-color: @bg-col;
+    border-radius: 10px;
+    margin: 5px 0px 0px 5px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    padding: 10px;
+    margin: 5px 0px 0px 5px;
+    text-color: @fg-col;
+    background-color: @bg-col-light;
+    border-radius: 10px;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 6px 0px 0px;
+    margin: 10px 5px 5px 5px;
+    columns: 1;
+    lines: 8;
+    background-color: transparent;
+}
+
+element {
+    padding: 8px;
+    background-color: transparent;
+    border-radius: 10px;
+    text-color: @fg-col;
+}
+
+element-icon {
+    size: 32px;
+    padding: 0px 10px 0px 0px;
+    background-color: transparent;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: @fg-col;
+    vertical-align: 0.5;
+}
+
+element selected {
+    background-color: @selected-col;
+    text-color: @fg-col2;
+}
+
+element-text selected {
+    text-color: @fg-col2;
+}
+
+element-icon selected {
+    background-color: transparent;
+}
+
+mode-switcher {
+    spacing: 0;
+}
+
+button {
+    padding: 10px;
+    background-color: @bg-col-light;
+    text-color: @fg-col;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
+
+button selected {
+    background-color: @bg-col;
+    text-color: @fg-col2;
+}

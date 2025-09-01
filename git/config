@@ -1,0 +1,61 @@
+; Git Configuration
+; Author: Binoy Manoj
+; GitHub: https://github.com/binoymanoj
+
+; if you're going to use this config, please do change the email and git url in this file
+
+[user]
+	name = binoymanoj
+	email = binoypm2002@gmail.com
+	; signingkey = #setup gpg signingkey
+
+; [commit]
+; 	gpgSign = true
+
+[credential]
+	helper = store
+
+[core]
+	compression = 9      # speedup network transfers and save diskspace
+	whitespace = error   # git warning for trial space commits
+	preloadindex = true  # load index into memory to improve performance
+
+; [advice]
+; 	addEmptyPathspec = false
+; 	pushNonFastForward = false
+; 	statusHints = false
+
+[init]
+	defaultBranch = dev
+
+[status]
+	branch = true
+	showStash = true
+	showUntrackedFiles = all
+
+[diff]
+	context = 3
+	renames = copies
+	interHunkContext = 10
+
+; [interactive]
+	; singlekey = true
+	
+; [push]
+; 	autoSetupRemote = true
+; 	default = current
+; 	followTags = true
+
+[pull]
+	default = current
+	; rebase = true
+
+; [rebase]
+; 	autoStash = true
+; 	missingCommitsCheck = warn
+
+[url "git@github.com:binoymanoj/"]
+	insteadOf = 'binoymanoj:'
+
+[url "git@github.com:"]
+	insteadOf = 'gh:'

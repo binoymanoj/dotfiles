@@ -1,0 +1,108 @@
+;; Kanata Configuration
+;; Author: Binoy Manoj
+;; GitHub: https://github.com/binoymanoj
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  a s d f g
+  h j k l ; i o
+  v b x
+  spc
+)
+
+(defvar
+  tap-time 200
+  hold-time 200
+)
+
+(defalias
+  ;; Home row mods
+  a-mod (tap-hold $tap-time $hold-time a lctl)
+  s-mod (tap-hold $tap-time $hold-time s lalt)
+  d-mod (tap-hold $tap-time $hold-time d lmet)
+  f-mod (tap-hold $tap-time $hold-time f lsft)
+  j-mod (tap-hold $tap-time $hold-time j rsft)
+  k-mod (tap-hold $tap-time $hold-time k rmet)
+  l-mod (tap-hold $tap-time $hold-time l ralt)
+  ;-mod (tap-hold $tap-time $hold-time ; rctl)
+  
+  ;; V key: tap for v, hold for fast mouse navigation layer
+  v-mod (tap-hold $tap-time $hold-time v (layer-while-held mouse-nav-fast))
+
+  ;; B key: tap for b, hold for mouse navigation layer
+  b-mod (tap-hold $tap-time $hold-time b (layer-while-held mouse-nav))
+
+  ;; X key: tap for x, hold for mouse scroll layer
+  x-mod (tap-hold $tap-time $hold-time x (layer-while-held mouse-scroll))
+  
+  ;; Space key: tap for space, hold for vim navigation layer
+  spc-mod (tap-hold $tap-time $hold-time spc (layer-while-held vim-nav))
+  
+  ;; Vim navigation aliases
+  vim-left  left
+  vim-down  down
+  vim-up    up
+  vim-right right
+  
+  ;; Mouse movement aliases (extremely slow movement)
+  mouse-up-slow    (movemouse-up 5 1)
+  mouse-down-slow  (movemouse-down 5 1)
+  mouse-left-slow  (movemouse-left 5 1)
+  mouse-right-slow (movemouse-right 5 1)
+
+  ;; Mouse movement aliases (fast movement)
+  mouse-up-fast    (movemouse-up 1 1)
+  mouse-down-fast  (movemouse-down 1 1)
+  mouse-left-fast  (movemouse-left 1 1)
+  mouse-right-fast (movemouse-right 1 1)
+  
+  ;; Mouse scroll aliases
+  scroll-up   (mwheel-up 50 120)
+  scroll-down (mwheel-down 50 120)
+  
+  ;; Mouse click aliases
+  left-click  mlft
+  right-click mrgt
+)
+
+(deflayer base
+  @a-mod @s-mod @d-mod @f-mod g
+  h      @j-mod @k-mod @l-mod @;-mod i o
+  @v-mod @b-mod @x-mod
+  @spc-mod
+)
+
+;; Vim navigation layer - activated when holding space
+(deflayer vim-nav
+  _ _ _ _ _
+  @vim-left @vim-down @vim-up @vim-right _ _ _
+  _ _ _
+  _
+)
+
+;; Mouse navigation layer - activated when holding V
+(deflayer mouse-nav-fast
+  _ _ _ _ _
+  @mouse-left-fast @mouse-down-fast @mouse-up-fast @mouse-right-fast _ @left-click @right-click
+  _ _ _
+  _
+)
+
+;; Mouse navigation layer - activated when holding B
+(deflayer mouse-nav
+  _ _ _ _ _
+  @mouse-left-slow @mouse-down-slow @mouse-up-slow @mouse-right-slow _ @left-click @right-click
+  _ _ _
+  _
+)
+
+;; Mouse scroll layer - activated when holding X
+(deflayer mouse-scroll
+  _ _ _ _ _
+  _ @scroll-down @scroll-up _ _ _ _
+  _ _ _
+  _
+)

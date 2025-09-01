@@ -1,0 +1,7 @@
+# [flavor]
+# dark = "tokyonight-night"
+# light = "tokyonight-night"
+
+[flavor]
+dark = "catppuccin-mocha"
+light = "catppuccin-mocha"

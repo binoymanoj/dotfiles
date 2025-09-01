@@ -1,0 +1,17 @@
+# Yazi Configuration                
+# Author: Binoy Manoj                   
+# GitHub: https://github.com/binoymanoj 
+
+# [status]
+# show_size = true
+#
+# [status.format]
+# right = [
+#     { field = "size", style = "white" },
+#     # You can keep other existing status items here
+#     { field = "permissions", style = "white" },
+#     { field = "modified", style = "white" }
+# ]
+
+[manager]
+linemode = "size"

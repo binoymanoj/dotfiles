@@ -1,0 +1,7 @@
+# Ignore this file. 
+# This is for those apps which have scaling issue in hyprland (because it's running on electron)
+# For those apps copy this file and paste it in it's respective config folders (eg. for VSCode the config repo is ~/.config/Code paste this entire file inside that folder as user-flags.conf  "~/.config/Code/user-flags.conf") 
+
+# Enable Wayland support
+--enable-features=UseOzonePlatform
+--ozone-platform=wayland

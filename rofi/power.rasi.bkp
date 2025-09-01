@@ -1,0 +1,69 @@
+// Power menu Configuration
+// Author: Binoy Manoj
+// GitHub: https://github.com/binoymanoj
+
+* {
+    bg0: #11111bee;
+    bg1: #1e1e2e99;
+    fg0: #cdd6f4;
+    fg1: #f38ba8;
+    
+    background-color: transparent;
+    text-color: @fg0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+    font: "JetBrainsMono Nerd Font 20"; 
+}
+
+window {
+    background-color: @bg0;
+    border-radius: 10px;
+    width: 500px;
+    location: center;
+    height: 350px;
+}
+
+mainbox {
+    padding: 5px;
+    children: [listview];
+}
+
+listview {
+    columns: 1;
+    lines: 5;
+    spacing: 5px;
+    padding: 5px;
+    fixed-height: false;
+    fixed-columns: true;
+    fixed-lines: true;
+    border: 0px;
+}
+
+element {
+    background-color: transparent;
+    padding: 10px;
+    spacing: 10px;  
+    border-radius: 5px;
+}
+
+element normal.normal {
+    background-color: transparent;
+}
+
+element alternate.normal {
+    background-color: transparent;
+}
+
+element selected.normal {
+    background-color: @bg1;
+    text-color: @fg1;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    padding: 2px;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}

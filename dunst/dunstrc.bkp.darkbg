@@ -1,0 +1,58 @@
+[global]
+    font = "JetBrainsMono Nerd Font 11"
+    
+    # Appearance
+    frame_width = 2
+    frame_color = "#cba6f7"          # Matches Waybar's active workspace color
+    separator_color = frame
+    corner_radius = 10               # Matches Waybar's border radius
+    
+    # Transparency and Colors
+    transparency = 20
+    background = "#11111bee"         # Dark background with transparency
+    foreground = "#cdd6f4"          # Matches Waybar's text color
+    
+    # Position and Size
+    offset = 10x10
+    width = 320
+    height = 110
+    gap_size = 8
+    padding = 12
+    horizontal_padding = 12
+    text_icon_padding = 12
+    
+    # Icons
+    icon_position = left
+    max_icon_size = 64
+    min_icon_size = 32
+    
+    # Behavior
+    timeout = 3
+    show_indicators = true
+    
+    # Progress Bar
+    progress_bar = true
+    progress_bar_height = 8
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    progress_bar_color = "#313244"
+    progress_bar_color_frame = "#313244"
+
+[urgency_low]
+    background = "#11111bee"
+    frame_color = "#89b4fa"          # Blue accent from Waybar
+    timeout = 4
+
+[urgency_normal]
+    background = "#11111bee"
+    frame_color = "#cba6f7"          # Purple accent matching Waybar active
+    timeout = 5
+
+[urgency_critical]
+    background = "#f38ba8ee"         # Red from Waybar's power button
+    frame_color = "#f38ba8"
+    timeout = 0
+    frame_width = 3
+    corner_radius = 10
+    highlight = "#f38ba8"

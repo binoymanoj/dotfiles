@@ -1,0 +1,92 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      // "j k": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+
+  // Custom keybindings by binoy_manoj
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      // Put key bindings here if you want them to work in normal & visual mode.
+
+      "shift-k": "editor::Hover",
+      "space c": "pane::CloseActiveItem",
+      "space tab": "pane::ActivateNextItem",
+      "space l a": "editor::ToggleCodeActions",
+      "space l f": "editor::Format",
+      "space l r": "editor::Rename",
+      "space l l": "editor::GoToDiagnostic",
+      "space f f": "file_finder::Toggle",
+      "space f w": "pane::DeploySearch",
+      "space f o": "tab_switcher::Toggle",
+      "space e": "workspace::ToggleLeftDock",
+      "space l s": "outline::Toggle",
+      "space /": "editor::ToggleComments",
+      "space l R": "editor::FindAllReferences",
+      "g s": "workspace::Save"
+    }
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      // "shift-y": ["workspace::SendKeystrokes", "y $"] // Use neovim's yank behavior: yank to end of line.
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore" // In insert mode, make jk escape to normal mode.
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      // visual mode keybindings
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp"
+    }
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      // Put key bindings here (in addition to the context above) if you want them to
+      // work when no editor exists.
+      // "space f": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "FileBrowser",
+    "bindings": {
+      "space": null, // Unbind space in file browser so it doesn't open files
+      "space e": "workspace::ToggleLeftDock",
+      // "l": "editor::OpenSelectedFilename", // Use l to open files in file browser
+      "space o": "workspace::ActivateNextPane"
+    }
+  },
+  // Global keybindings that should work in all contexts
+  {
+    "context": "Workspace",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock"
+      // "space o": "workspace::ActivateNextPane", // Toggle between panes
+      // "ctrl-l": "workspace::ActivateNextPane", // Move cursor right between panes
+      // "ctrl-h": "workspace::ActivatePreviousPane" // Move cursor left between panes
+    }
+  }
+]

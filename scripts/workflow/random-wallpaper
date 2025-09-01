@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# this script changes the wallpaper random from the dir given to waypaper (in my case it's ~/Pictures/Wallpapers/)
+
+waypaper --random
+

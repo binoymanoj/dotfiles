@@ -1,0 +1,67 @@
+[global]
+    font = "JetBrainsMono Nerd Font 11"
+    
+    # Appearance
+    frame_width = 2
+    frame_color = "#9199CB"
+    separator_color = frame
+    corner_radius = 12
+    
+    # Transparency and Background
+    transparency = 0
+    background = "#00000000"  # Fully transparent
+    foreground = "#cdd6f4"
+    
+    # Position and Size
+    offset = 10x10
+    width = 300
+    height = (100, 300)
+    gap_size = 8
+    padding = 12
+    horizontal_padding = 12
+    text_icon_padding = 8
+    
+    # Icons
+    icon_position = left
+    max_icon_size = 32      # Reduced from 64
+    min_icon_size = 24      # Reduced from 32
+    
+    # Behavior
+    timeout = 5
+    show_indicators = true
+
+    idle_threshold = 0    #  120 for default configuration(lasts around 10secs), update to 0 if you want to set the timeout for notifications
+    sticky_history = yes
+    show_age_threshold = 60
+    
+    # Progress Bar
+    progress_bar = true
+    progress_bar_height = 6
+    progress_bar_frame_width = 1
+    progress_bar_min_width = 150
+    progress_bar_max_width = 300
+    progress_bar_color = "#313244"
+    progress_bar_color_frame = "#313244"
+
+    # Enable background blur
+    blur = true
+    blur_size = 12          # Adjust blur intensity
+    blur_passes = 2         # Number of blur passes
+
+[urgency_low]
+    background = "#00000055"  # Very slight dark tint for readability
+    frame_color = "#89b4fa"
+    timeout = 5
+
+[urgency_normal]
+    background = "#00000055"  # Very slight dark tint for readability
+    frame_color = "#9199CB"
+    timeout = 5
+
+[urgency_critical]
+    background = "#f38ba8aa"  # Semi-transparent red
+    frame_color = "#f38ba8"
+    timeout = 0
+    frame_width = 3
+    corner_radius = 12
+    highlight = "#f38ba8"

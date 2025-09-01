@@ -1,0 +1,169 @@
+# Zathura Configuration - Modern Dark Theme
+# Author: Binoy Manoj
+# GitHub: https://github.com/binoymanoj
+
+# ==================== APPEARANCE ====================
+
+# Color scheme - Modern dark theme with accent colors
+set notification-error-bg       "#1e1e2e"
+set notification-error-fg       "#f38ba8"
+set notification-warning-bg     "#1e1e2e"
+set notification-warning-fg     "#fab387"
+set notification-bg             "#1e1e2e"
+set notification-fg             "#cdd6f4"
+
+set completion-bg               "#1e1e2e"
+set completion-fg               "#cdd6f4"
+set completion-group-bg         "#313244"
+set completion-group-fg         "#89b4fa"
+set completion-highlight-bg     "#585b70"
+set completion-highlight-fg     "#cdd6f4"
+
+set index-bg                    "#1e1e2e"
+set index-fg                    "#cdd6f4"
+set index-active-bg             "#585b70"
+set index-active-fg             "#cdd6f4"
+
+set inputbar-bg                 "#1e1e2e"
+set inputbar-fg                 "#cdd6f4"
+
+set statusbar-bg                "#1e1e2e"
+set statusbar-fg                "#cdd6f4"
+
+set highlight-color             "#f9e2af"
+set highlight-active-color      "#89b4fa"
+
+# set default-bg                  "#181825"
+set default-bg                  "#1A1D23"
+set default-fg                  "#cdd6f4"
+
+set render-loading              true
+# set render-loading-bg           "#181825"
+set render-loading-bg           "#1A1D23"
+set render-loading-fg           "#585b70"
+
+# Recoloring - makes PDFs easier on the eyes
+# set recolor-lightcolor          "#181825"
+set recolor-lightcolor          "#1A1D23"
+set recolor-darkcolor           "#cdd6f4"
+set recolor                     "false"
+set recolor-keephue             true
+set recolor-reverse-video       true
+
+# ==================== BEHAVIOR ====================
+
+# Scroll settings
+set scroll-page-aware           "true"
+set scroll-full-overlap         0.01
+set scroll-step                 50
+set smooth-scroll               true
+
+# Zoom settings
+set zoom-min                    10
+set zoom-max                    1000
+set zoom-step                   10
+
+# Page settings
+set adjust-open                 "best-fit"
+set pages-per-row               1
+set first-page-column           1:2
+
+# Window settings
+set window-title-basename       true
+set window-title-page           true
+set selection-clipboard         "clipboard"
+set incremental-search          true
+
+# Database
+set database                    "sqlite"
+
+# ==================== KEY BINDINGS ====================
+
+# Navigation
+map d scroll half-down
+map u scroll half-up
+map D toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
+map i recolor
+map p print
+# map g goto top
+
+# Invert color by default (for dark mode)
+set recolor "true"
+
+# Tab-like behavior for multiple documents
+map <C-t> focus_inputbar ":open "
+map <C-w> quit
+
+# Better page navigation
+map <C-n> navigate next
+map <C-p> navigate previous
+
+# Quick zoom levels
+map 1 set "zoom-to-fit width"
+map 2 set "zoom-to-fit best-fit"
+map 3 set "zoom-to-fit page"
+
+# Search enhancements
+map <C-f> focus_inputbar "/"
+map <C-g> search forward
+map <C-G> search backward
+
+# Fullscreen toggle
+map <F11> toggle_fullscreen
+map f toggle_fullscreen
+
+# Index/outline navigation
+map <Tab> toggle_index
+map <C-o> focus_inputbar ":open "
+
+# ==================== ADVANCED SETTINGS ====================
+
+# Font settings (requires proper font installation)
+set font                        "JetBrains Mono 12"
+
+# Startup options
+set show-hidden                 false
+set show-directories            true
+set show-recent                 true
+
+# Performance
+set page-cache-size             15
+set page-thumbnail-size         4194304
+
+# Synctex support (for LaTeX)
+set synctex                     true
+set synctex-editor-command      "code --goto %{input}:%{line}"
+
+# Link handling
+set link-zoom                   true
+set link-hadjust                true
+
+# Selection behavior
+set selection-notification      true
+
+# Status bar format
+set statusbar-h-padding         10
+set statusbar-v-padding         5
+
+# Sandbox (security)
+set sandbox                     "normal"
+
+# ==================== CUSTOM COMMANDS ====================
+
+# Quick theme toggle
+map <C-i> set "recolor" "!recolor"
+
+# Quick fit toggles
+map w set "adjust-open" "width"
+map e set "adjust-open" "best-fit"
+
+# Page layout toggles
+map <C-1> set "pages-per-row" 1
+map <C-2> set "pages-per-row" 2
+
+# Presentation mode (fullscreen + fit width)
+map <F5> feedkeys "<F11>w"

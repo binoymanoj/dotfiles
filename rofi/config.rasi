@@ -1,0 +1,39 @@
+// Rofi Configuration
+// Author: Binoy Manoj
+// GitHub: https://github.com/binoymanoj
+
+configuration {
+    modi: "drun,run,filebrowser,window";
+    font: "JetBrainsMono Nerd Font 12";
+    terminal: "kitty";
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: " Apps";
+    display-run: " Run";
+    display-window: " Window";
+    display-filebrowser: " Location";
+    display-Network: " Network";
+    sidebar-mode: true;
+    
+    //adding vim keybindings
+    kb-row-up: "Up,Control+k";
+    kb-row-left: "Left,Control+h";
+    kb-row-right: "Right,Control+l";
+    kb-row-down: "Down,Control+j";
+
+    kb-accept-entry: "Control+z,Control+y,Return,KP_Enter";
+    
+    kb-remove-to-eol: "";
+    kb-move-char-back: "Control+b";
+    kb-remove-char-back: "BackSpace";
+    kb-move-char-forward: "Control+f";
+    kb-mode-complete: "Control+o";
+    
+    // Enable icons
+    show-icons: true;
+    icon-theme: "Papirus";
+}
+
+@theme "catppuccin"

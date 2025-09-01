@@ -1,0 +1,188 @@
+# Tmux Configuration
+# Author: Binoy Manoj
+# GitHub: https://github.com/binoymanoj
+
+# Install tpm - tmux plugin manager
+# git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+
+# Reload config file
+bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config Reloaded!"
+
+# prefix + I for installing newly added plugin 
+
+# Prefix CTRL+a (default: CTRL+b)
+# unbind C-b
+# set-option -g prefix C-a
+# bind C-a send-prefix
+
+# Set terminal color support
+set -g default-terminal "tmux-256color"
+set-option -sa terminal-features ',xterm-256color:RGB'
+
+set -g mouse on              # Enable mouse support
+set -g focus-events on       # Enable focus events for better Vim integration
+set -g set-clipboard on      # Enable system clipboard
+set -g detach-on-destroy off # Don't exit from tmux when closing a session
+
+# start window numbering from 1 instead of 0
+set -g base-index 1
+set -g pane-base-index 1
+set -g renumber-windows on
+
+# Enable terminal cursor shape changes
+set-option -g terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[ q'
+
+# Default to a block cursor (normal mode)
+set -g @normal_cursor "\e[2 q"  # Block cursor
+set -g @insert_cursor "\e[6 q"  # Line cursor
+
+# Use Zsh's vi mode hooks
+setw -g mode-keys vi
+
+# Detect Zsh mode changes and update the cursor
+bind-key -T vi-command Escape run-shell "printf '\e[2 q'"
+bind-key -T vi-insert Escape run-shell "printf '\e[2 q'"
+bind-key -T vi-insert Enter run-shell "printf '\e[6 q'"
+
+# Vim-like copy mode bindings
+# prefix + [ - to get into moving around mode in tmux then select using v and copy using y
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
+bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
+
+# Copy to system clipboard 
+bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+
+# Session Rename using Prefix + R
+bind R command-prompt -I "#{session_name}" "rename-session '%%'"
+
+# Set prefix key
+# unbind C-b               # Unbind default prefix
+# set -g prefix C-Space    # Set CTRL+SPACE as prefix
+
+# Unbind existing pane navigation keys
+unbind h
+unbind j
+unbind k
+unbind l
+
+# Use Ctrl + h/j/k/l for pane switching
+# bind -n C-h select-pane -L
+# bind -n C-j select-pane -D
+# bind -n C-k select-pane -U
+# bind -n C-l select-pane -R
+
+# Ctrl is overlapping with Nvim switch split keybindings so, ALT instead
+# bind -n M-h select-pane -L
+# bind -n M-j select-pane -D
+# bind -n M-k select-pane -U
+# bind -n M-l select-pane -R
+
+# Switch between windows with Ctrl + 1/2/3.... (not working with CTRL, so config with alt+1/2/3.... below)
+# bind -n C-0 select-window -t :0
+# bind -n C-1 select-window -t :1
+# bind -n C-2 select-window -t :2
+# bind -n C-3 select-window -t :3
+# bind -n C-4 select-window -t :4
+# bind -n C-5 select-window -t :5
+# bind -n C-6 select-window -t :6
+# bind -n C-7 select-window -t :7
+# bind -n C-8 select-window -t :8
+# bind -n C-9 select-window -t :9
+
+# Switch between windows with Alt + 1/2/3....
+bind -n M-0 select-window -t :0
+bind -n M-1 select-window -t :1
+bind -n M-2 select-window -t :2
+bind -n M-3 select-window -t :3
+bind -n M-4 select-window -t :4
+bind -n M-5 select-window -t :5
+bind -n M-6 select-window -t :6
+bind -n M-7 select-window -t :7
+bind -n M-8 select-window -t :8
+bind -n M-9 select-window -t :9
+
+# Splitting panes
+bind | split-window -h -c "#{pane_current_path}"
+bind \\ split-window -v -c "#{pane_current_path}"
+
+# Vim keys to resize pane
+bind -r h resize-pane -L 5
+bind -r j resize-pane -D 5
+bind -r k resize-pane -U 5
+bind -r l resize-pane -R 5
+bind -r m resize-pane -Z # to maximize current pane
+
+# Utilities like sessionizer, open pdf and others
+# bind-key f display-popup -E -w 80% -h 80% "~/.config/scripts/tmux-sessionizer.sh"      # find and open in current session with popup
+# bind-key F display-popup -E -w 80% -h 80% "~/.config/scripts/tmux-sessionizer.sh new"  # find and open in a new session with popup
+# bind-key o display-popup -E -w 80% -h 80% "~/.config/scripts/tmux-open-pdf.sh"              # open pdf with popup
+bind-key g run-shell "~/.config/scripts/tmux-open-github.sh"                             # opens github repository of the current project
+
+# Smaller popup for sessionizer and open pdf
+bind-key f display-popup -E -w 60% -h 60% "~/.config/scripts/tmux-sessionizer.sh"
+bind-key F display-popup -E -w 60% -h 60% "~/.config/scripts/tmux-sessionizer.sh new"
+bind-key -r H run-shell "~/.config/scripts/tmux-sessionizer.sh ~"                         # go home in new window
+bind-key o display-popup -E -w 60% -h 60% -x C -y C "~/.config/scripts/tmux-open-pdf.sh"
+bind-key s display-popup -E -w 80% -h 80% "~/.config/scripts/tmux-session-manager.sh"
+
+# Centered smaller popup
+# bind-key f display-popup -E -w 70% -h 70% -x C -y C "~/.config/scripts/tmux-sessionizer.sh"
+# bind-key F display-popup -E -w 70% -h 70% -x C -y C "~/.config/scripts/tmux-sessionizer.sh new"
+# bind-key o display-popup -E -w 70% -h 70% -x C -y C "~/.config/scripts/tmux-open-pdf.sh"
+
+# TPM (Tmux Plugin Manager) and Catppuccin configuration
+set -g @plugin 'tmux-plugins/tpm'
+
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'tmux-plugins/tmux-resurrect' # persist session after restarting computer
+set -g @plugin 'tmux-plugins/tmux-continuum' # Automatically saves session every 15 mins
+# set -g @plugin 'binoymanoj/tmux-zenflow'     # Zen workflow plugin (sessionizer & open pdf)
+
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-restore 'on'
+set -g @resurrect-save-shell-history 'on'
+
+# Catppuccin Theme Configuration
+set -g @catppuccin_flavour 'mocha' # or latte, frappe, macchiato, macho
+
+# Set window status style: options are 'basic', 'rounded', 'slanted'
+set -g @catppuccin_window_status_style "rounded"
+
+# Set Active window numbering bg to custom color
+# set -g @catppuccin_window_current_number_color "#9199CB"
+
+# Enable the status bar and set it to appear at the top.
+set -g status on
+set -g status-position top
+set -g status-interval 3
+
+# Clear any default status sections.
+set -g status-left ""
+set -g status-right ""
+
+# Increase the right status length to ensure the directory isn't truncated.
+set -g status-right-length 100
+
+# Configure the format for the window status modules
+set -g @catppuccin_window_left_separator ""
+set -g @catppuccin_window_right_separator ""
+set -g @catppuccin_window_middle_separator " "
+
+# set -g @catppuccin_window_number_position "right"
+set -g @catppuccin_window_default_text " #W"
+set -g @catppuccin_window_current_text " #W"
+set -g @catppuccin_window_text " #W"
+
+# Set a custom status-right that shows the current directory.
+# The #[fg=...] and #[bg=...] attributes style the text.
+set -g status-right "#[fg=green,bg=black,bold] #{pane_current_path} #[default]"
+# (Optional) If you'd like to also show the session name next to the directory,
+# you can uncomment the following line:
+# set -g status-right "#[fg=#c6a0f6,bold] #{pane_current_path} #[default]| #[fg=#c6a0f6]#S#[default]"
+set -g status-right "#[fg=#fff,bold] #{pane_current_path} #[default]| #[fg=#fff]#S#[default]"
+
+# Initialize TPM (keep this line at the very bottom)
+run '~/.tmux/plugins/tpm/tpm'
