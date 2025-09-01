@@ -71,3 +71,10 @@ tmux/plugins
 
 !user-flags.conf.bkp
 !zshrc-symlink.sh
+
+!screenshots/
+!screenshots/*
+!docs/
+!docs/*
+
+!README.md
