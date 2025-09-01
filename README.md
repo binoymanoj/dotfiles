@@ -21,8 +21,7 @@
 <p><em>Complete desktop setup with Archlinux + Hyprland + Hyprpanel</em></p>
 </div>
 
-<details>
-<summary>🖼️ More Screenshots</summary>
+## 🖼️ More Screenshots
 
 ### 🖥️ Terminal
 <img src="screenshots/kitty-terminal-preview.png" alt="Kitty" width="600"/>
@@ -41,8 +40,6 @@
 
 ### 🖼️ Rofi 
 <img src="screenshots/rofi-preview.png" alt="Rofi" width="600"/>
-
-</details>
 
 ## ✨ Features
 
