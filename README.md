@@ -41,6 +41,9 @@
 ### 🖼️ Rofi 
 <img src="screenshots/rofi-preview.png" alt="Rofi" width="600"/>
 
+### 🖥️ Power Menu 
+<img src="screenshots/power-menu.png" alt="Power Menu" width="600"/>
+
 ## ✨ Features
 
 - 🎯 **Minimalist Design** - Clean, distraction-free interface
