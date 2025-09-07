@@ -1,10 +1,13 @@
 #!/bin/bash
 
-# Rofi Smart Run Script (open url in browser with rofi - keymap in hyprland.conf)
+# Rofi Smart Run Script (open url in browser with rofi - keymap in hyprland.conf - MainMod+r)
 # Author: Binoy Manoj
 # GitHub: https://github.com/binoymanoj
-#
-# if you plan to use this update the search engine & browser according to your preference
+
+# Usage: 
+# - Normal search: "linux tutorial" → DuckDuckGo (default)  
+# - Google search: "linux tutorial :g" → Google
+# - DuckDuckGo search: "linux tutorial :d" → DuckDuckGo
 
 input="$1"
 browser="brave"  # or brave, chromium, etc.
@@ -20,7 +23,20 @@ elif [[ "$input" =~ ^localhost:[0-9]+(/.*)?$ ]]; then
 elif command -v "$input" &> /dev/null; then
     "$input" &
 else
-    query=$(echo "$input" | sed 's/ /+/g')
-    # $browser "https://www.google.com/search?q=$query" &    # google search
-    $browser "https://www.duckduckgo.com/?q=$query" &      # duckduckgo search
+    # Check for search engine suffix
+    if [[ "$input" == *" :g" ]]; then
+        # Google search - remove the :g suffix
+        search_term="${input% :g}"
+        query=$(echo "$search_term" | sed 's/ /+/g')
+        $browser "https://www.google.com/search?q=$query" &
+    elif [[ "$input" == *" :d" ]]; then
+        # DuckDuckGo search - remove the :d suffix
+        search_term="${input% :d}"
+        query=$(echo "$search_term" | sed 's/ /+/g')
+        $browser "https://www.duckduckgo.com/?q=$query" &
+    else
+        # Default to DuckDuckGo
+        query=$(echo "$input" | sed 's/ /+/g')
+        $browser "https://www.duckduckgo.com/?q=$query" &
+    fi
 fi
