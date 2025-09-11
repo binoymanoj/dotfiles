@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# Configuration
+TERMINAL="kitty"
+NOTES_DIR="$HOME/Notes/07 Journals"
+EDITOR="${EDITOR:-nvim}"  # Use system editor or default to nvim
+
+# Ensure notes directory exists
+mkdir -p "$NOTES_DIR"
+
+# Generate tomorrow's date in DD-MM-YYYY format
+TOMORROW=$(date -d '+1 day' '+%d-%m-%Y')
+NOTE_FILE="$NOTES_DIR/$TOMORROW.md"
+
+# Create note template if file doesn't exist
+if [ ! -f "$NOTE_FILE" ]; then
+    cat > "$NOTE_FILE" << 'EOF'
+---
+date: __DATE__
+day: __DAY__
+tags: [journal, daily]
+---
+
+## __DATE__ - Agenda
+- 
+- 
+- 
+
+---
+### Priority Tasks
+- [ ] 
+- [ ] 
+- [ ] 
+
+### Time Block
+|     Time    |         Work         |
+|-------------|----------------------|
+| 9.00 - 9.30 | Breakfast 🍳                     |
+| 9.30 - 11.00 |                      |
+| 11.15 - 12.00 |                      |
+| 12.10 - 1.00 |                      |
+| 1.00 - 2.15 | Shower 🚿 & Lunch 🍳                    |
+| 2.30 - 3.15 |                      |
+| 3.30 - 4.15 |                      |
+| 4.30 - 5.30 |                      |
+| 5.30 - 6.00 | Walk 30 min 🚶🏽‍♂️                 |
+| 6.10 - 7.30 |                      |
+| 7.30 - 7.50 | Dinner 🍳                     |
+| 8.00 - 9.00 |                      |
+| 9.10 - 9.40 |                      |
+| 9.45 - 10.15 | Reading 📖                     |
+| 10.15 | Bedtime 🛌                      |
+---
+
+## __DATE__ - Journal
+- 
+- 
+- 
+
+## Notes & Thoughts
+
+
+## Learning & Ideas
+
+
+## Evening Review
+- **What went well:** 
+- **What could improve:** 
+- **Tomorrow's priority:** 
+- **Mood:** /10
+
+## 📝 Quick Captures
+
+---
+*Created: __TIMESTAMP__*
+EOF
+
+    DAY_NAME=$(date -d '+1 day' '+%A')
+    TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+    
+    sed -i "s/__DATE__/$TOMORROW/g" "$NOTE_FILE"
+    sed -i "s/__DAY__/$DAY_NAME/g" "$NOTE_FILE"
+    sed -i "s/__TIMESTAMP__/$TIMESTAMP/g" "$NOTE_FILE"
+fi
+"$TERMINAL" --working-directory="$NOTES_DIR" -e "$EDITOR" "$NOTE_FILE" &
+
+echo "Tomorrow's note opened: $NOTE_FILE"
