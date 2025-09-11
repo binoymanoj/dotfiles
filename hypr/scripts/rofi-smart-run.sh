@@ -34,6 +34,11 @@ else
         search_term="${input% :d}"
         query=$(echo "$search_term" | sed 's/ /+/g')
         $browser "https://www.duckduckgo.com/?q=$query" &
+    elif [[ "$input" == *" :y" ]]; then
+        # DuckDuckGo search - remove the :d suffix
+        search_term="${input% :y}"
+        query=$(echo "$search_term" | sed 's/ /+/g')
+        $browser "https://www.youtube.com/results?search_query=$query" &
     else
         # Default to DuckDuckGo
         query=$(echo "$input" | sed 's/ /+/g')
