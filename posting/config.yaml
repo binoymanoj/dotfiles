@@ -1,0 +1,21 @@
+# POSTING Configuration
+# Author: Binoy Manoj
+# GitHub: https://github.com/binoymanoj
+# config guide: https://posting.sh/guide/configuration/
+
+theme: flexoki
+# handpicked from built-in collection: 
+# textual-dark, nord, catppuccin-mocha, dracula, tokyo-night, monokai, flexoki, galaxy(default), auroro, cobalt, hacker
+
+layout: horizontal
+response:
+  prettify_json: false
+heading:
+  visible: true
+  show_host: false
+focus:
+  on_startup: "collection"     # url(default), method, collection
+  on_response: "body"          # body, tab, unset(default)
+  on_request_open: "headers"   # headers, body, query, info, url, method, unset(default)
+text_input: 
+  blinking_cursor: false   # true(default)
