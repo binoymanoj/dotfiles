@@ -13,6 +13,8 @@
 !fastfetch/*/*
 !ghostty/
 !ghostty/*
+!helix/
+!helix/*
 !hypr/
 !hypr/*
 !hypr/*/*

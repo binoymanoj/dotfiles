@@ -1,0 +1,38 @@
+ # Helix Configuration
+ # Author: Binoy Manoj
+ # GitHub: https://github.com/binoymanoj
+
+# Theme
+theme = "onedark"
+
+[editor]
+# Display options
+line-number = "relative"       # show relative line numbers
+
+# Other editor behaviors
+scrolloff = 5                # keep 5 lines visible above/below cursor
+
+[keys.normal]
+# Key mappings
+"G" = "goto_file_end"
+
+[keys.normal.space]
+"q" = ":quit"
+"Q" = ":quit-all"
+
+[keys.normal.space.w]
+"r" = ":write"
+
+[keys.normal.space.t]
+# Quick theme toggles (hand-picked)
+"1" = ":theme amberwood"
+"2" = ":theme yo_berry"
+"3" = ":theme zed_onedark"
+"4" = ":theme onedark"
+"5" = ":theme github_dark"
+"6" = ":theme dracula_at_night"
+"7" = ":theme ayu_dark"
+"8" = ":theme doom-one"
+"9" = ":theme everblush"
+"0" = ":theme earl_grey"
+
