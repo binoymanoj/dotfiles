@@ -9,13 +9,13 @@ theme: flexoki
 
 # layout: horizontal
 response:
-  prettify_json: false
+  prettify_json: true
 heading:
   visible: true
   show_host: false
 focus:
-  on_startup: "collection"     # url(default), method, collection
-  on_response: "body"          # body, tab, unset(default)
-  on_request_open: "headers"   # headers, body, query, info, url, method, unset(default)
+  on_startup: "url"     # url(default), method, collection
+  # on_response: "body"          # body, tab, unset(default)
+  # on_request_open: "headers"   # headers, body, query, info, url, method, unset(default)
 text_input: 
   blinking_cursor: false   # true(default)
