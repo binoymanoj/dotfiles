@@ -7,7 +7,7 @@ theme: flexoki
 # handpicked from built-in collection: 
 # textual-dark, nord, catppuccin-mocha, dracula, tokyo-night, monokai, flexoki, galaxy(default), auroro, cobalt, hacker
 
-layout: horizontal
+# layout: horizontal
 response:
   prettify_json: false
 heading:
