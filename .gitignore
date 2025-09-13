@@ -34,6 +34,8 @@
 !nvim/*/*/*
 !playerctl/
 !playerctl/*
+!posting/
+!posting/*
 !qutebrowser/
 !qutebrowser/*
 !qutebrowser/*/*
