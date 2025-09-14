@@ -359,16 +359,20 @@ alias yayoutdated='yay -Qua'                      # Check for outdated AUR packa
 # Pacman & Yay package removing script
 alias pkgdel='~/.config/scripts/remove-pkg.sh'
 
-# Task warrior Aliases
+# Task warrior Aliases (comment the following Aliases out if you're not using it)
 alias t='task'
 alias ta='task add'
 alias tc='task context'
 
-# YT DLP Aliases
+# YT DLP Aliases (comment the following Aliases out if you're not using it)
 alias ytdlp='yt-dlp'
 alias ytdlpmp3='yt-dlp -x --audio-format mp3'
 
-# Run Tmux on terminal open (commented out for now, sometimes it gets annoying. It opens default session on every terminal opened)
+# POSTING API Client Aliases (comment the following Aliases out if you're not using it)
+alias posting='cd "$(find ~/Codes/api-collection -mindepth 1 -maxdepth 1 -type d ! -name '.git' | fzf)" && posting'   # this script list all the directories inside ~/Codes/api-collection in a fuzzy finder and by selecting the dir you want it opens in POSTING TUI
+
+
+# Run Tmux on terminal open (commented out for now, sometimes it gets annoying. It opens default session on every terminal opened. Might need in the future)
 # if command -v tmux &> /dev/null; then
 #   if [[ -z "$TMUX" ]] && [[ -z "$SSH_TTY" ]]; then
 #     tmux attach -t default || tmux new -s default
