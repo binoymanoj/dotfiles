@@ -369,7 +369,7 @@ alias ytdlp='yt-dlp'
 alias ytdlpmp3='yt-dlp -x --audio-format mp3'
 
 # POSTING API Client Aliases (comment the following Aliases out if you're not using it)
-alias posting='cd "$(find ~/Codes/api-collection -mindepth 1 -maxdepth 1 -type d ! -name '.git' | fzf)" && posting'   # this script list all the directories inside ~/Codes/api-collection in a fuzzy finder and by selecting the dir you want it opens in POSTING TUI
+alias posting='cd "$(find ~/Codes/api-collection -mindepth 1 -maxdepth 1 -type d ! -name '.git' | fzf)" && posting --collection ./ --env ./.env'   # this script list all the directories inside ~/Codes/api-collection in a fuzzy finder and by selecting the dir you want it opens in POSTING TUI
 
 
 # Run Tmux on terminal open (commented out for now, sometimes it gets annoying. It opens default session on every terminal opened. Might need in the future)
