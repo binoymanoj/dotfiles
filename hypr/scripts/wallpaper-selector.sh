@@ -3,8 +3,6 @@
 # Wallpaper Selector
 # Author: Binoy Manoj
 # GitHub: https://github.com/binoymanoj
-#
-# This is a custom wallpaper selector I created with Rofi + hyprpaper. Currently not in use, I replaced it with swww + waypaper
 
 # Configuration
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
