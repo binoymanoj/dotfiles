@@ -36,6 +36,9 @@
 !playerctl/*
 !posting/
 !posting/*
+!qBittorrent/
+!qBittorrent/themes/
+!qBittorrent/themes/*
 !qutebrowser/
 !qutebrowser/*
 !qutebrowser/*/*
