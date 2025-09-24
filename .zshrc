@@ -355,7 +355,8 @@ alias yayinfo='yay -Si'                           # Show info about a package
 alias yayclean='yay -Yc'                          # Remove orphaned packages
 alias yayedit='yay -S --editmenu --nodiffmenu'    # Edit PKGBUILD before installing (interactive)
 alias yayoutdated='yay -Qua'                      # Check for outdated AUR packages
-
+# Full system upgrade (pacman && aur - yay)
+alias fullupgrade='sudo pacman -Syyu --noconfirm && yay -Syu --aur --noconfirm && yay -Scc'
 # Pacman & Yay package removing script
 alias pkgdel='~/.config/scripts/remove-pkg.sh'
 
