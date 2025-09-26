@@ -75,7 +75,7 @@ local mappings = {
     },
 
     -- Typst: Open compiled PDF in Zathura
-    ["<leader>tp"] = {
+    ["<leader>to"] = {
       function()
         local file = vim.fn.expand("%:p:r") .. ".pdf" -- same name, .pdf
         vim.cmd("!zathura " .. file .. " & disown")
