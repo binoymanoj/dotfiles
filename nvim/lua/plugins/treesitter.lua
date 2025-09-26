@@ -15,6 +15,7 @@ return {
         "tsx",
         "astro",
         "go",
+        -- "typst",
       },
     },
   },

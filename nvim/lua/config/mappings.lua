@@ -62,6 +62,26 @@ local mappings = {
       end,
       desc = "Evaluate expression before =",
     },
+    ["<leader>tw"] = {
+      function()
+        local file = vim.fn.expand("%:p") -- full path of current file
+        if vim.fn.fnamemodify(file, ":e") == "typ" then
+          vim.cmd("split | terminal typst watch " .. file)
+        else
+          print("Not a Typst file")
+        end
+      end,
+      desc = "Typst Watch PDF",
+    },
+
+    -- Typst: Open compiled PDF in Zathura
+    ["<leader>tp"] = {
+      function()
+        local file = vim.fn.expand("%:p:r") .. ".pdf" -- same name, .pdf
+        vim.cmd("!zathura " .. file .. " & disown")
+      end,
+      desc = "Open Typst PDF in Zathura",
+    },
   },
   v = {
     ["<M-j>"] = { ":m '>+1<CR>gv=gv", desc = "Move selection down" },

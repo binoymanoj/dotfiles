@@ -17,6 +17,7 @@ return {
         "gopls", -- Go language server
         "biome", -- rust based plugin replacement for eslint & prettier (it does both linting and formatting ts,js,json files) (struggling for larger tsx files over 1800 lines)
         -- "eslint-lsp", -- sometimes causing unwanted issues in ts files
+        -- "tinymist", -- for typst
       },
     },
   },
