@@ -1,0 +1,19 @@
+/* ##################################
+ * #  Custom Volume Module Styling  #
+ * ################################## */
+@include styleModule(
+    // class name
+    'cmodule-timewarrior',
+    // styling properties
+    (
+            'text-color': #c0bfbc,
+            'icon-color': #242438,
+            'icon-background': #c0bfbc,
+            'label-background': #242438,
+            'padding-left': 0em,
+            'inner-spacing': 0em,
+            'border-enabled': false,
+            'border-color': #c0bfbc,
+            'icon-size': 1.2em
+        )
+);

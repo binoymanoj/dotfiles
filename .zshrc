@@ -364,6 +364,27 @@ alias pkgdel='~/.config/scripts/remove-pkg.sh'
 alias t='task'
 alias ta='task add'
 alias tc='task context'
+# Task warrior + Time warrior
+alias ts="task start"
+alias td="task done"
+alias tsp="task stop"
+alias ta="task active"
+alias tll="task list"
+
+TIMEW_GRAPH_SCRIPT="$HOME/.config/scripts/timewarrior-graph.sh"
+
+# Time warrior Aliases (comment the following Aliases out if you're not using it)
+alias tw="timew"
+alias tws="timew start"
+alias twp="timew stop"
+# Export and visualize day
+alias twday='timew export :day > /tmp/timew-day.json && bash $TIMEW_GRAPH_SCRIPT /tmp/timew-day.json'
+# Export and visualize week
+alias twweek='timew export :week > /tmp/timew-week.json && bash $TIMEW_GRAPH_SCRIPT /tmp/timew-week.json'
+# Export and visualize month
+alias twmonth='timew export :month > /tmp/timew-month.json && bash $TIMEW_GRAPH_SCRIPT /tmp/timew-month.json'
+# Export and visualize year
+alias twyear='timew export :year > /tmp/timew-year.json && bash $TIMEW_GRAPH_SCRIPT /tmp/timew-year.json'
 
 # YT DLP Aliases (comment the following Aliases out if you're not using it)
 alias ytdlp='yt-dlp'

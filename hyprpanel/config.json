@@ -35,7 +35,7 @@
   "theme.bar.margin_top": "0.5em",
   "theme.bar.margin_bottom": "0em",
   "bar.clock.showTime": true,
-  "bar.clock.format": "%a %b %d  %I:%M %p",
+  "bar.clock.format": "%d %a  %I:%M %p",
   "bar.network.truncation": false,
   "bar.network.label": false,
   "bar.bluetooth.label": false,
@@ -153,7 +153,7 @@
         "ram"
       ],
       "middle": [
-        "media"
+        "custom/timewarrior"
       ],
       "right": [
         "netstat",
@@ -177,6 +177,7 @@
         "media"
       ],
       "right": [
+        "custom/timewarrior",
         "netstat",
         "volume",
         "network",

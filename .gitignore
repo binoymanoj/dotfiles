@@ -87,3 +87,7 @@ tmux/plugins
 !docs/*
 
 !README.md
+
+# to be ignored
+scripts/timewarrior.log   
+

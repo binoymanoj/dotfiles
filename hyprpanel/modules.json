@@ -1,1 +1,10 @@
-{}
+{
+	"custom/timewarrior": {
+		"label": "{}",
+		"truncationSize": -1,
+		"tooltip": "{}",
+		"execute": "/home/cyph3r/.config/scripts/timewarrior-status.sh",
+		"interval": 1000,
+		"hideOnEmpty": true
+	}
+}
