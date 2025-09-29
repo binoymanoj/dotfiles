@@ -1,5 +1,5 @@
 #!/bin/bash
-CATEGORIES=("Reading" "Work" "Break" "Personal" "Learning" "Exercise" "Meeting" "Stop Tracking")
+CATEGORIES=("Personal" "Reading" "Learning" "Coding" "CTF" "Work" "Meeting" "Exercise" "Walking" "Chess" "Wasting Time" "Sleep" "Break" "Stop Tracking")
 SELECTED=$(printf '%s\n' "${CATEGORIES[@]}" | rofi -dmenu -p "Track time:" -i)
 
 if [ -z "$SELECTED" ]; then exit 0; fi
