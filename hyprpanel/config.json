@@ -54,7 +54,7 @@
   "bar.windowtitle.label": true,
   "bar.windowtitle.icon": true,
   "bar.windowtitle.truncation": true,
-  "theme.bar.menus.menu.dashboard.scaling": 85,
+  "theme.bar.menus.menu.dashboard.scaling": 90,
   "theme.notification.scaling": 100,
   "bar.clock.showIcon": true,
   "bar.media.show_label": true,
@@ -114,8 +114,8 @@
   "menus.dashboard.shortcuts.left.shortcut1.command": "brave",
   "menus.dashboard.shortcuts.left.shortcut2.command": "amberol",
   "menus.dashboard.shortcuts.left.shortcut2.tooltip": "Amberol Music Player",
-  "theme.bar.menus.menu.notifications.scaling": 90,
-  "theme.bar.menus.menu.clock.scaling": 90,
+  "theme.bar.menus.menu.notifications.scaling": 100,
+  "theme.bar.menus.menu.clock.scaling": 100,
   "menus.clock.weather.key": "",
   "bar.media.format": "{title: - }{artist}",
   "theme.bar.buttons.network.enableBorder": false,
@@ -239,5 +239,6 @@
   "theme.bar.buttons.modules.ram.enableBorder": false,
   "theme.bar.menus.opacity": 100,
   "theme.bar.menus.background": "#11111b",
-  "theme.bar.background": "#232338"
+  "theme.bar.background": "#232338",
+  "theme.bar.menus.menu.power.scaling": 100
 }
