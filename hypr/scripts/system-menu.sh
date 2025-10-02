@@ -16,6 +16,8 @@ show_main_menu() {
     echo "󱐋 Performance"
     echo "󰖩 WiFi"
     echo "󰂯 Bluetooth"
+    echo "󰔠 Time Tracker"
+    echo "󰠮 Journal"
     echo "󰍉 Task Manager"
     echo "󰌌 Keybinds"
     echo "󰋗 About"
@@ -61,13 +63,13 @@ show_install() {
         *"Pacman")
             PACKAGE=$(pacman -Slq | rofi -dmenu -i -p "Install package")
             if [ -n "$PACKAGE" ]; then
-                $TERMINAL -e bash -c "sudo pacman -S $PACKAGE; read -p 'Press enter to close...'"
+                $TERMINAL -e bash -c "sudo pacman -S $PACKAGE --noconfirm; read -p 'Press enter to close...'"
             fi
             ;;
         *"Yay")
             PACKAGE=$(yay -Slq | rofi -dmenu -i -p "Install package")
             if [ -n "$PACKAGE" ]; then
-                $TERMINAL -e bash -c "yay -S $PACKAGE; read -p 'Press enter to close...'"
+                $TERMINAL -e bash -c "yay -S $PACKAGE --noconfirm; read -p 'Press enter to close...'"
             fi
             ;;
     esac
@@ -79,10 +81,10 @@ show_update() {
     
     case "$MANAGER" in
         *"Pacman")
-            $TERMINAL -e bash -c "sudo pacman -Syu; read -p 'Press enter to close...'"
+            $TERMINAL -e bash -c "sudo pacman -Syu --noconfirm; read -p 'Press enter to close...'"
             ;;
         *"Yay")
-            $TERMINAL -e bash -c "yay -Syu; read -p 'Press enter to close...'"
+            $TERMINAL -e bash -c "yay -Syu --noconfirm; read -p 'Press enter to close...'"
             ;;
     esac
 }
@@ -195,6 +197,27 @@ show_bluetooth() {
     esac
 }
 
+# Journal
+show_journal() {
+    ENTRY=$(echo -e "󰃭 Today\n󰃮 Tomorrow" | rofi -dmenu -i -p "Journal")
+    
+    case "$ENTRY" in
+        *"Today")
+            ~/.config/hypr/scripts/journal/today 
+            notify-send "Journal" "Opening today's journal"
+            ;;
+        *"Tomorrow")
+            ~/.config/hypr/scripts/journal/tomorrow
+            notify-send "Journal" "Opening tomorrow's journal"
+            ;;
+    esac
+}
+
+# Time Tracker
+show_timetracker() {
+    ~/.config/hypr/scripts/timetracker.sh
+}
+
 # Task Manager
 show_task_manager() {
     $TERMINAL -e btop
@@ -241,6 +264,12 @@ case "$CHOICE" in
         ;;
     *"Bluetooth")
         show_bluetooth
+        ;;
+    *"Time Tracker")
+        show_timetracker
+        ;;
+    *"Journal")
+        show_journal
         ;;
     *"Task Manager")
         show_task_manager

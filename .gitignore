@@ -18,6 +18,7 @@
 !hypr/
 !hypr/*
 !hypr/*/*
+!hypr/*/*/*
 !hyprpanel/
 !hyprpanel/*
 !kanata/
