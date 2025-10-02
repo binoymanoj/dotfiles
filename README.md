@@ -23,11 +23,19 @@
 
 ## 🖼️ More Screenshots
 
+### Control Center (All-in-one Menu)
+<img src="screenshots/control-center1.png" alt="Main Menu" width="600"/>
+
+<img src="screenshots/control-center2.png" alt="Main Menu" width="600"/>
+
 ### 🖥️ Terminal
 <img src="screenshots/kitty-terminal-preview.png" alt="Kitty" width="600"/>
 
 ### 📝 Text Editing
 <img src="screenshots/neovim-preview.png" alt="Neovim" width="600"/>
+
+### 🎵 Music Player
+<img src="screenshots/music-player.png" alt="Music Player" width="600"/>
 
 ### 🧑‍💻 Tmux (Terminal multiplexer)
 <img src="screenshots/tmux-full-preview.png" alt="Qutebrowser" width="600"/>
