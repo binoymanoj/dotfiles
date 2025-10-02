@@ -15,7 +15,7 @@ configuration {
     display-window: " Window";
     display-filebrowser: " Location";
     display-Network: " Network";
-    sidebar-mode: true;
+    // sidebar-mode: true;
     
     //adding vim keybindings
     kb-row-up: "Up,Control+k";
