@@ -25,7 +25,8 @@ show_main_menu() {
     echo "󰂯 Bluetooth"
     echo "󰔠 Time Tracker"
     echo "󰠮 Journal"
-    echo "󰍉 Task Manager"
+    echo "󰒓 Task Manager"
+    echo "󰍉 Search"
     echo "󰖟 Bookmarks"
     echo "󰌌 Keybinds"
     echo "󰋗 About"
@@ -231,6 +232,11 @@ show_task_manager() {
     $TERMINAL -e btop
 }
 
+# Search
+show_search() {
+    ~/.config/hypr/scripts/rofi-smart-run.sh
+}
+
 detect_browser() {
     for b in brave brave-browser google-chrome chromium firefox; do
         if command -v "$b" >/dev/null 2>&1; then
@@ -386,6 +392,9 @@ case "$CHOICE" in
         ;;
     *"Task Manager")
         show_task_manager
+        ;;
+    *"Search")
+        show_search
         ;;
     *"Bookmarks")
         show_bookmarks
