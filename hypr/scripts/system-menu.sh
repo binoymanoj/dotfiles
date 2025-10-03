@@ -384,7 +384,7 @@ show_books() {
 # Services menu
 show_services() {
     # List of services to manage
-    SERVICE=$(echo -e "󰒃 UFW\n󰌌 Kanata\n󰛳 Tailscale\n󰣀 SSH\n󰕾 PulseAudio\n󰖟 NetworkManager\n󰂯 Bluetooth\n󰍹 GDM" | rofi -dmenu -i -p "Services")
+    SERVICE=$(echo -e "󰡨 Docker\n󰒃 UFW\n󰌌 Kanata\n󰛳 Tailscale\n󰣀 SSH\n󰍹 GDM\n󰖟 NetworkManager\n󰂯 Bluetooth" | rofi -dmenu -i -p "Services")
     
     if [ -z "$SERVICE" ]; then
         return
@@ -404,9 +404,6 @@ show_services() {
         *"SSH")
             SERVICE_NAME="sshd"
             ;;
-        *"PulseAudio")
-            SERVICE_NAME="pulseaudio"
-            ;;
         *"NetworkManager")
             SERVICE_NAME="NetworkManager"
             ;;
@@ -415,6 +412,9 @@ show_services() {
             ;;
         *"Bluetooth")
             SERVICE_NAME="bluetooth"
+            ;;
+        *"Docker")
+            SERVICE_NAME="docker"
             ;;
         *)
             return
@@ -436,8 +436,13 @@ show_services() {
             notify-send "Services" "$SERVICE_NAME started"
             ;;
         *"Stop")
-            $TERMINAL -e bash -c "sudo systemctl stop $SERVICE_NAME; echo 'Service stopped. Press enter to close...'; read"
-            notify-send "Services" "$SERVICE_NAME stopped"
+            if [ "$SERVICE_NAME" = "docker" ]; then
+                $TERMINAL -e bash -c "sudo systemctl stop docker docker.socket; echo 'Docker and docker.socket stopped. Press enter to close...'; read"
+                notify-send "Services" "Docker and docker.socket stopped"
+            else
+                $TERMINAL -e bash -c "sudo systemctl stop $SERVICE_NAME; echo 'Service stopped. Press enter to close...'; read"
+                notify-send "Services" "$SERVICE_NAME stopped"
+            fi
             ;;
         *"Restart")
             $TERMINAL -e bash -c "sudo systemctl restart $SERVICE_NAME; echo 'Service restarted. Press enter to close...'; read"
