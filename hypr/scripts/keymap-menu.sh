@@ -7,7 +7,7 @@
 show_keymaps() {
     cat << EOF
 󰌌 SUPER + RETURN → Open Terminal
-󰍉 SUPER + SPACE → System Menu
+󰍉 SUPER + SPACE → Main Menu (System Menu)
 󰖙 SUPER + C → Close Active Window
 󰗼 SUPER + SHIFT + M → Exit Hyprland
 󰖟 SUPER + B → Open Browser (Brave)

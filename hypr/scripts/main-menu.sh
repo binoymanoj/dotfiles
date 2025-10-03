@@ -6,33 +6,37 @@
 
 # Terminal to use
 TERMINAL="kitty"
-
 # Browser to use
 BROWSER="brave"
-
 # Bookmarks directory
 BOOKMARKS_DIR="$HOME/Documents/"
 BOOKMARKS_FILE="$BOOKMARKS_DIR/bookmarks.txt"
+# Notes Directory
+NOTES_DIR="$HOME/Notes/01 Inbox"
+NOTES_FILE="$NOTES_DIR/quick-notes.md"
 
 # Main menu options
 show_main_menu() {
     echo "󰀻 Apps"
-    echo "󰒓 Tools"
+    echo "󱂬 TUI Apps"
     echo "󰏔 Install"
     echo "󰚰 Update"
     echo "󰆴 Remove"
     echo "󱐋 Performance"
     echo "󰖩 WiFi"
     echo "󰂯 Bluetooth"
+    echo "󰒓 Tools"
+    echo "󰲌 Projects"
+    echo "󰈙 Books"
+    echo "󰠮 Notes"
     echo "󰔠 Time Tracker"
     echo "󰠮 Journal"
-    echo "󰒓 Task Manager"
     echo "󰍉 Search"
     echo "󰖟 Bookmarks"
-    echo "󰈙 Books"
     echo "󱡶 Services"
-    echo "󰲌 Projects"
+    echo "󰅬 Scripts"
     echo "󰌌 Keybinds"
+    echo "󰒓 Task Manager"
     echo "󰋗 About"
     echo "󰐥 System"
 }
@@ -68,9 +72,21 @@ show_tools() {
     esac
 }
 
+# Improved browser detection
+detect_browser() {
+    # Check for browsers in order of preference
+    for browser in brave brave-browser google-chrome-stable google-chrome chromium firefox; do
+        if command -v "$browser" >/dev/null 2>&1; then
+            echo "$browser"
+            return 0
+        fi
+    done
+    return 1
+}
+
 # Install menu
 show_install() {
-    MANAGER=$(echo -e "󰏖 Pacman\n󰣇 Yay" | rofi -dmenu -i -p "Install with")
+    MANAGER=$(echo -e "󰏖 Pacman\n󰣇 Yay\n󰖟 PWA (Web App)" | rofi -dmenu -i -p "Install with")
     
     case "$MANAGER" in
         *"Pacman")
@@ -83,6 +99,95 @@ show_install() {
             PACKAGE=$(yay -Slq | rofi -dmenu -i -p "Install package")
             if [ -n "$PACKAGE" ]; then
                 $TERMINAL -e bash -c "yay -S $PACKAGE --noconfirm; read -p 'Press enter to close...'"
+            fi
+            ;;
+        *"PWA"*)
+            URL=$(echo "" | rofi -dmenu -p "Enter website URL")
+            if [ -n "$URL" ]; then
+                # Add https:// if not present
+                if [[ ! "$URL" =~ ^https?:// ]]; then
+                    URL="https://$URL"
+                fi
+                
+                APP_NAME=$(echo "" | rofi -dmenu -i -p "Enter app name" -lines 0)
+                if [ -n "$APP_NAME" ]; then
+                    # Detect browser
+                    BROWSER_CMD=$(detect_browser)
+                    if [ $? -eq 0 ]; then
+                        # Create directories
+                        DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME// /-}.desktop"
+                        ICON_DIR="$HOME/.local/share/icons/hicolor/256x256/apps"
+                        mkdir -p "$HOME/.local/share/applications"
+                        mkdir -p "$ICON_DIR"
+                        
+                        # Download favicon
+                        ICON_NAME="${APP_NAME// /-}"
+                        ICON_PATH="$ICON_DIR/$ICON_NAME.png"
+                        
+                        # Try multiple favicon locations
+                        FAVICON_URLS=(
+                            "${URL}/favicon.ico"
+                            "${URL}/favicon.png"
+                            "https://www.google.com/s2/favicons?domain=${URL}&sz=256"
+                        )
+                        
+                        FAVICON_DOWNLOADED=false
+                        for FAVICON_URL in "${FAVICON_URLS[@]}"; do
+                            if curl -s -L -f "$FAVICON_URL" -o "$ICON_PATH" 2>/dev/null; then
+                                # Convert to PNG if it's an ICO file
+                                if file "$ICON_PATH" | grep -q "MS Windows icon"; then
+                                    if command -v convert >/dev/null 2>&1; then
+                                        convert "$ICON_PATH" "$ICON_PATH" 2>/dev/null
+                                    fi
+                                fi
+                                FAVICON_DOWNLOADED=true
+                                break
+                            fi
+                        done
+                        
+                        # Fallback to generic icon if download failed
+                        if [ "$FAVICON_DOWNLOADED" = false ]; then
+                            ICON_NAME="web-browser"
+                            notify-send "PWA" "Could not download favicon, using default icon"
+                        fi
+                        
+                        # Different app mode syntax for different browsers
+                        case "$BROWSER_CMD" in
+                            *brave* | *chrome*)
+                                APP_CMD="$BROWSER_CMD --app=$URL"
+                                ;;
+                            *firefox*)
+                                APP_CMD="$BROWSER_CMD --new-window $URL"
+                                ;;
+                            *)
+                                APP_CMD="$BROWSER_CMD --app=$URL"
+                                ;;
+                        esac
+                        
+                        # Create desktop entry
+                        cat > "$DESKTOP_FILE" << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=$APP_NAME
+Exec=$APP_CMD
+Icon=$ICON_NAME
+Categories=Network;WebBrowser;
+Terminal=false
+StartupNotify=true
+EOF
+                        chmod +x "$DESKTOP_FILE"
+                        
+                        # Update icon cache
+                        if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+                            gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor 2>/dev/null
+                        fi
+                        
+                        notify-send "PWA Installed" "$APP_NAME created successfully\nBrowser: $BROWSER_CMD"
+                    else
+                        notify-send "PWA Error" "No supported browser found\nInstall Brave, Chrome, Chromium, or Firefox"
+                    fi
+                fi
             fi
             ;;
     esac
@@ -104,11 +209,9 @@ show_update() {
 
 # Remove menu
 show_remove() {
-    # Get all installed packages (both pacman and AUR)
     PACKAGE=$(pacman -Qq | rofi -dmenu -i -p "Remove package")
     
     if [ -n "$PACKAGE" ]; then
-        # Check if it's an AUR package
         if pacman -Qm | grep -q "^$PACKAGE "; then
             $TERMINAL -e bash -c "yay -R $PACKAGE; read -p 'Press enter to close...'"
         else
@@ -143,11 +246,9 @@ show_wifi() {
     
     case "$ACTION" in
         *"Connect/Disconnect")
-            # Get list of networks
             NETWORK=$(nmcli -f SSID,SIGNAL,SECURITY device wifi list | tail -n +2 | rofi -dmenu -i -p "Select Network")
             if [ -n "$NETWORK" ]; then
                 SSID=$(echo "$NETWORK" | awk '{print $1}')
-                # Check if already connected
                 if nmcli connection show --active | grep -q "$SSID"; then
                     nmcli connection down "$SSID"
                     notify-send "WiFi" "Disconnected from $SSID"
@@ -181,11 +282,9 @@ show_bluetooth() {
     
     case "$ACTION" in
         *"Connect/Disconnect")
-            # Get list of paired devices
             DEVICE=$(bluetoothctl devices | rofi -dmenu -i -p "Select Device")
             if [ -n "$DEVICE" ]; then
                 MAC=$(echo "$DEVICE" | awk '{print $2}')
-                # Check if connected
                 if bluetoothctl info "$MAC" | grep -q "Connected: yes"; then
                     bluetoothctl disconnect "$MAC"
                     notify-send "Bluetooth" "Disconnected from device"
@@ -241,17 +340,7 @@ show_search() {
     ~/.config/hypr/scripts/rofi-smart-run.sh
 }
 
-detect_browser() {
-    for b in brave brave-browser google-chrome chromium firefox; do
-        if command -v "$b" >/dev/null 2>&1; then
-            echo "$b"
-            return
-        fi
-    done
-    echo ""  
-}
-
-# Sync bookmarks from Brave (tab-separated file: Title <TAB> URL)
+# Sync bookmarks from Brave
 sync_bookmarks() {
     mkdir -p "$BOOKMARKS_DIR"
     BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
@@ -259,8 +348,6 @@ sync_bookmarks() {
         notify-send "Bookmarks" "Brave bookmarks file not found!"
         return
     fi
-    # Produce TAB-separated lines: Title<TAB>URL
-    # - use // "" to avoid null names, gsub to remove tabs from names
     jq -r '.. | objects
              | select(.type == "url")
              | ( (.name // "") | gsub("\t"; " ") ) + "\t" + .url
@@ -269,7 +356,7 @@ sync_bookmarks() {
     notify-send "Bookmarks" "Synced $BOOKMARK_COUNT bookmarks from Brave"
 }
 
-# Show bookmarks menu (uses arrays to map display -> URL)
+# Show bookmarks menu
 show_bookmarks() {
     mkdir -p "$BOOKMARKS_DIR"
     if [ ! -f "$BOOKMARKS_FILE" ]; then
@@ -280,13 +367,10 @@ show_bookmarks() {
         fi
         return
     fi
-    # Read lines into array
     mapfile -t _lines < "$BOOKMARKS_FILE"
-    # Build display array and url array in parallel
     display_lines=()
     urls=()
     for line in "${_lines[@]}"; do
-        # split on first tab
         title="${line%%$'\t'*}"
         url="${line#*$'\t'}"
         if [ -z "$title" ]; then
@@ -297,7 +381,6 @@ show_bookmarks() {
         display_lines+=("$display_name")
         urls+=("$url")
     done
-    # Prepend sync option
     MENU=$(printf "%s\n" "󰓦 Sync Bookmarks from Browser" "${display_lines[@]}")
     SELECTION=$(echo -e "$MENU" | rofi -dmenu -i -p "Bookmarks")
     if [ -z "$SELECTION" ]; then
@@ -308,7 +391,6 @@ show_bookmarks() {
         show_bookmarks
         return
     fi
-    # Find selected index (first match). This will pick the first duplicate if there are duplicates.
     found_index=-1
     for i in "${!display_lines[@]}"; do
         if [ "${display_lines[$i]}" = "$SELECTION" ]; then
@@ -334,9 +416,8 @@ show_bookmarks() {
     fi
 }
 
-# Books menu - Open PDFs with rofi 
+# Books menu
 show_books() {
-    # Find all PDFs in the specified directories
     PDFS=$(find ~/CyberSec/Books ~/Documents/Books ~/Development/Books -mindepth 1 -maxdepth 1 -name "*.pdf" 2>/dev/null)
     
     if [ -z "$PDFS" ]; then
@@ -344,23 +425,19 @@ show_books() {
         return
     fi
     
-    # Create a formatted list with just filenames (remove paths for display)
     PDF_LIST=$(echo "$PDFS" | while read -r pdf; do
         basename "$pdf"
     done)
     
-    # Show rofi menu
     SELECTED=$(echo "$PDF_LIST" | rofi -dmenu -i -p "📚 Select PDF to open")
     
     if [ -z "$SELECTED" ]; then
         return
     fi
     
-    # Find the full path of the selected PDF
     FULL_PATH=$(echo "$PDFS" | grep "/$SELECTED$")
     
     if [ -n "$FULL_PATH" ]; then
-        # Check if zathura is available
         if command -v zathura >/dev/null 2>&1; then
             zathura "$FULL_PATH" &
             notify-send "Books" "Opening $SELECTED"
@@ -381,16 +458,178 @@ show_books() {
     fi
 }
 
+# TUI Apps menu - ENHANCED with descriptions and more tools
+show_tui() {
+    TUI_APP=$(echo -e "󰡨 LazyDocker (Docker TUI)\n󰒍 yazi (File Manager)\n󰚝 btop (System Monitor)\n󰅬 acpi (Battery Health)\n󰅬 ncdu (Disk Usage Analyzer)\n󱂬 lazygit (Git TUI)\n󰩟 nmon (Performance Monitor)\n󰒋 htop (Process Viewer)\n󰖟 nethogs (Network Monitor)\n󰒍 ranger (File Manager)\n󰆼 gotop (System Monitor)\n󰩨 glances (System Monitor)\n󰙨 iftop (Network Bandwidth)\n󰓾 iotop (I/O Monitor)\n󰒓 ctop (Container Monitor)\n󰹑 s-tui (CPU Stress Test)" | rofi -dmenu -i -p "TUI Apps")
+    
+    case "$TUI_APP" in
+        *"LazyDocker"*)
+            if command -v lazydocker >/dev/null 2>&1; then
+                $TERMINAL -e lazydocker
+            else
+                notify-send "TUI Apps" "lazydocker not installed\nInstall: yay -S lazydocker"
+            fi
+            ;;
+        *"yazi"*)
+            if command -v yazi >/dev/null 2>&1; then
+                $TERMINAL -e yazi
+            else
+                notify-send "TUI Apps" "yazi not installed\nInstall: yay -S yazi"
+            fi
+            ;;
+        *"btop"*)
+            if command -v btop >/dev/null 2>&1; then
+                $TERMINAL -e btop
+            else
+                notify-send "TUI Apps" "btop not installed\nInstall: sudo pacman -S btop"
+            fi
+            ;;
+        *"acpi"*)
+            if command -v acpi >/dev/null 2>&1; then
+                $TERMINAL -e bash -c "acpi -i; read -p 'Press enter to close...'"
+            else
+                notify-send "TUI Apps" "acpi not installed\nInstall: sudo pacman -S acpi"
+            fi
+            ;;
+        *"ncdu"*)
+            if command -v ncdu >/dev/null 2>&1; then
+                $TERMINAL -e ncdu
+            else
+                notify-send "TUI Apps" "ncdu not installed\nInstall: sudo pacman -S ncdu"
+            fi
+            ;;
+        *"lazygit"*)
+            if command -v lazygit >/dev/null 2>&1; then
+                $TERMINAL -e lazygit
+            else
+                notify-send "TUI Apps" "lazygit not installed\nInstall: yay -S lazygit"
+            fi
+            ;;
+        *"nmon"*)
+            if command -v nmon >/dev/null 2>&1; then
+                $TERMINAL -e nmon
+            else
+                notify-send "TUI Apps" "nmon not installed\nInstall: yay -S nmon"
+            fi
+            ;;
+        *"htop"*)
+            if command -v htop >/dev/null 2>&1; then
+                $TERMINAL -e htop
+            else
+                notify-send "TUI Apps" "htop not installed\nInstall: sudo pacman -S htop"
+            fi
+            ;;
+        *"nethogs"*)
+            if command -v nethogs >/dev/null 2>&1; then
+                $TERMINAL -e bash -c "sudo nethogs; read -p 'Press enter to close...'"
+            else
+                notify-send "TUI Apps" "nethogs not installed\nInstall: sudo pacman -S nethogs"
+            fi
+            ;;
+        *"glances"*)
+            if command -v glances >/dev/null 2>&1; then
+                $TERMINAL -e glances
+            else
+                notify-send "TUI Apps" "glances not installed\nInstall: sudo pacman -S glances"
+            fi
+            ;;
+        *"iftop"*)
+            if command -v iftop >/dev/null 2>&1; then
+                $TERMINAL -e bash -c "sudo iftop; read -p 'Press enter to close...'"
+            else
+                notify-send "TUI Apps" "iftop not installed\nInstall: sudo pacman -S iftop"
+            fi
+            ;;
+        *"iotop"*)
+            if command -v iotop >/dev/null 2>&1; then
+                $TERMINAL -e bash -c "sudo iotop; read -p 'Press enter to close...'"
+            else
+                notify-send "TUI Apps" "iotop not installed\nInstall: sudo pacman -S iotop"
+            fi
+            ;;
+        *"ctop"*)
+            if command -v ctop >/dev/null 2>&1; then
+                $TERMINAL -e ctop
+            else
+                notify-send "TUI Apps" "ctop not installed\nInstall: yay -S ctop-bin"
+            fi
+            ;;
+        *"s-tui"*)
+            if command -v s-tui >/dev/null 2>&1; then
+                $TERMINAL -e s-tui
+            else
+                notify-send "TUI Apps" "s-tui not installed\nInstall: yay -S s-tui"
+            fi
+            ;;
+    esac
+}
+
+# Notes menu
+show_notes() {
+    mkdir -p "$NOTES_DIR"
+    ACTION=$(echo -e "󰈙 New Note\n󰈙 View Notes\n󰷈 Quick Snippet" | rofi -dmenu -i -p "Notes")
+    
+    case "$ACTION" in
+        *"New Note")
+            NOTE_NAME=$(rofi -dmenu -p "Note name")
+            if [ -n "$NOTE_NAME" ]; then
+                $TERMINAL -e nvim "$NOTES_DIR/$NOTE_NAME.md"
+            fi
+            ;;
+        *"View Notes")
+            NOTE=$(find "$NOTES_DIR" -type f -name "*.md" -o -name "*.txt" 2>/dev/null | sed "s|$NOTES_DIR/||" | rofi -dmenu -i -p "Select Note")
+            if [ -n "$NOTE" ]; then
+                $TERMINAL -e nvim "$NOTES_DIR/$NOTE"
+            fi
+            ;;
+        *"Quick Snippet")
+            SNIPPET=$(rofi -dmenu -p "Enter snippet" -lines 0)
+            if [ -n "$SNIPPET" ]; then
+                echo "$(date '+%Y-%m-%d %H:%M:%S') - $SNIPPET" >> "$NOTES_FILE"
+                notify-send "Notes" "Snippet saved"
+            fi
+            ;;
+    esac
+}
+
+# Scripts menu
+show_scripts() {
+    ACTION=$(echo -e "󰑓 Restart Hyprpanel\n󰑓 Reload Hyprland Config\n󰚰 Update All Packages\n󰩺 Clear Cache\n󰃨 Change Wallpaper\n󰖟 Restart Network" | rofi -dmenu -i -p "Scripts")
+    
+    case "$ACTION" in
+        *"Restart Hyprpanel")
+            hyprpanel -q; hyprpanel
+            notify-send "Scripts" "Hyprpanel restarted"
+            ;;
+        *"Reload Hyprland Config")
+            hyprctl reload
+            notify-send "Scripts" "Hyprland config reloaded"
+            ;;
+        *"Update All Packages")
+            $TERMINAL -e bash -c "yay -Syu --noconfirm; read -p 'Press enter to close...'"
+            ;;
+        *"Clear Cache")
+            $TERMINAL -e bash -c "yay -Sc --noconfirm; sudo pacman -Sc --noconfirm; read -p 'Press enter to close...'"
+            notify-send "Scripts" "Cache cleared"
+            ;;
+        *"Change Wallpaper")
+            ~/.config/hypr/scripts/wallpaper-selector.sh
+            ;;
+        *"Restart Network")
+            $TERMINAL -e bash -c "sudo systemctl restart NetworkManager; read -p 'Press enter to close...'"
+            notify-send "Scripts" "Network restarted"
+            ;;
+    esac
+}
+
 # Services menu
 show_services() {
-    # List of services to manage
     SERVICE=$(echo -e "󰡨 Docker\n󰒃 UFW\n󰌌 Kanata\n󰛳 Tailscale\n󰣀 SSH\n󰍹 GDM\n󰖟 NetworkManager\n󰂯 Bluetooth" | rofi -dmenu -i -p "Services")
     
     if [ -z "$SERVICE" ]; then
         return
     fi
     
-    # Extract service name
     case "$SERVICE" in
         *"UFW")
             SERVICE_NAME="ufw"
@@ -421,7 +660,6 @@ show_services() {
             ;;
     esac
     
-    # Check current status
     if systemctl is-active --quiet "$SERVICE_NAME"; then
         STATUS="Active"
         ACTION=$(echo -e "󰓛 Stop\n󰑓 Restart\n󰋗 Status" | rofi -dmenu -i -p "$SERVICE_NAME ($STATUS)")
@@ -456,7 +694,6 @@ show_services() {
 
 # Projects menu
 show_projects() {
-    # Find directories using rofi instead of fzf
     DIRS=$(find ~/Codes ~/Codes/* ~/Codes/*/* ~/Development -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|^$HOME/||")
     
     if [ -z "$DIRS" ]; then
@@ -464,25 +701,19 @@ show_projects() {
         return
     fi
     
-    # Show rofi menu
     SELECTED=$(echo "$DIRS" | rofi -dmenu -i -p "📁 Select Project Directory")
     
     if [ -z "$SELECTED" ]; then
         return
     fi
     
-    # Add home path back
     SELECTED_PATH="$HOME/$SELECTED"
     SELECTED_NAME=$(basename "$SELECTED_PATH" | tr . _)
     
-    # Open in terminal with nvim
     if [ -d "$SELECTED_PATH" ]; then
-        # Check if we're in tmux
         if [[ -n $TMUX ]]; then
-            # Create new tmux window
             tmux new-window -c "$SELECTED_PATH" -n "$SELECTED_NAME" "nvim ."
         else
-            # Open terminal with nvim
             $TERMINAL --working-directory="$SELECTED_PATH" -e nvim . &
         fi
         notify-send "Projects" "Opening $SELECTED_NAME in nvim"
@@ -501,15 +732,17 @@ show_about() {
     $TERMINAL -e bash -c "fastfetch; read -p 'Press enter to close...'"
 }
 
-# System menu (existing power menu)
+# System menu
 show_system() {
     ~/.config/hypr/scripts/power-menu.sh
 }
 
 # Main logic
 CHOICE=$(show_main_menu | rofi -dmenu -i -p "System Menu")
-
 case "$CHOICE" in
+    *"TUI Apps")
+        show_tui
+        ;;
     *"Apps")
         show_apps
         ;;
@@ -551,6 +784,12 @@ case "$CHOICE" in
         ;;
     *"Books")
         show_books
+        ;;
+    *"Notes")
+        show_notes
+        ;;
+    *"Scripts")
+        show_scripts
         ;;
     *"Services")
         show_services

@@ -25,6 +25,7 @@ hyprsunset
 hypridle
 hyprlock
 hyprpicker
+swww
 
 # Development
 neovim
