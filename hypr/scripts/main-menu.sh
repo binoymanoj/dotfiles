@@ -460,7 +460,7 @@ show_books() {
 
 # TUI Apps menu - ENHANCED with descriptions and more tools
 show_tui() {
-    TUI_APP=$(echo -e "󰡨 LazyDocker (Docker TUI)\n󰒍 yazi (File Manager)\n󰚝 btop (System Monitor)\n󰅬 acpi (Battery Health)\n󰅬 ncdu (Disk Usage Analyzer)\n󱂬 lazygit (Git TUI)\n󰩟 nmon (Performance Monitor)\n󰒋 htop (Process Viewer)\n󰖟 nethogs (Network Monitor)\n󰒍 ranger (File Manager)\n󰆼 gotop (System Monitor)\n󰩨 glances (System Monitor)\n󰙨 iftop (Network Bandwidth)\n󰓾 iotop (I/O Monitor)\n󰒓 ctop (Container Monitor)\n󰹑 s-tui (CPU Stress Test)" | rofi -dmenu -i -p "TUI Apps")
+    TUI_APP=$(echo -e "󰡨 LazyDocker (Docker TUI)\n󰒍 yazi (File Manager)\n󱂬 CAVA (Music Visualizer)\n󰚝 btop (System Monitor)\n󰅬 acpi (Battery Health)\n󰅬 ncdu (Disk Usage Analyzer)\n󱂬 lazygit (Git TUI)\n󰩟 nmon (Performance Monitor)\n󰒋 htop (Process Viewer)\n󰖟 nethogs (Network Monitor)\n󰒍 ranger (File Manager)\n󰆼 gotop (System Monitor)\n󰩨 glances (System Monitor)\n󰙨 iftop (Network Bandwidth)\n󰓾 iotop (I/O Monitor)\n󰒓 ctop (Container Monitor)\n󰹑 s-tui (CPU Stress Test)" | rofi -dmenu -i -p "TUI Apps")
     
     case "$TUI_APP" in
         *"LazyDocker"*)
@@ -475,6 +475,13 @@ show_tui() {
                 $TERMINAL -e yazi
             else
                 notify-send "TUI Apps" "yazi not installed\nInstall: yay -S yazi"
+            fi
+            ;;
+        *"CAVA"*)
+            if command -v cava >/dev/null 2>&1; then
+                $TERMINAL -e cava
+            else
+                notify-send "TUI Apps" "cava not installed\nInstall: sudo pacman -S cava"
             fi
             ;;
         *"btop"*)
