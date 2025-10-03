@@ -49,6 +49,9 @@
 ### 🖼️ Rofi 
 <img src="screenshots/rofi-preview.png" alt="Rofi" width="600"/>
 
+### 📑 Zathura - PDF Viewer
+<img src="screenshots/zathura-pdf-viewer.png" alt="Zathura" width="600"/>
+
 ### 🖥️ Power Menu 
 <img src="screenshots/power-menu.png" alt="Power Menu" width="600"/>
 
