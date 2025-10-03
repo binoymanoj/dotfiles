@@ -85,9 +85,38 @@ show_keymaps() {
 EOF
 }
 
+# Kanata Keymaps
+show_kanata_keymaps() {
+    cat << EOF
+󰌌 Kanata Home Row Mods
+A → Tap: a | Hold: Left Ctrl
+S → Tap: s | Hold: Left Alt
+D → Tap: d | Hold: Left Meta
+F → Tap: f | Hold: Left Shift
+J → Tap: j | Hold: Right Shift
+K → Tap: k | Hold: Right Meta
+L → Tap: l | Hold: Right Alt
+; → Tap: ; | Hold: Right Ctrl
+
+󰌌 Kanata Layers
+V → Tap: v | Hold: Fast Mouse Layer
+B → Tap: b | Hold: Mouse Layer (slow)
+X → Tap: x | Hold: Mouse Scroll Layer
+Space → Tap: Space | Hold: Vim Navigation Layer
+
+󰅒 Vim Navigation (Space Layer)
+H → Left | J → Down | K → Up | L → Right
+
+󰍽 Mouse Navigation
+V Hold → Fast mouse movement + L/R click
+B Hold → Slow mouse movement + L/R click
+X Hold → Scroll Up/Down
+EOF
+}
+
 # Function to show category-based view
 show_categories() {
-    CATEGORY=$(echo -e "󰍉 All Keybindings\n󰇘 Window Management\n󱂬 Workspaces\n󰝚 Media Controls\n󰕾 System Controls\n󰹑 Screenshots\n󰍉 Applications" | rofi -dmenu -i -p "Keymap Categories")
+    CATEGORY=$(echo -e "󰍉 All Keybindings\n󰌌 Kanata Keybindings\n󰇘 Window Management\n󱂬 Workspaces\n󰝚 Media Controls\n󰕾 System Controls\n󰹑 Screenshots\n󰍉 Applications" | rofi -dmenu -i -p "Keymap Categories")
     
     case "$CATEGORY" in
         *"All Keybindings")
@@ -95,6 +124,9 @@ show_categories() {
             ;;
         *"Window Management")
             show_keymaps | grep -E "(Move Focus|Move Window|Resize|Close|Float|Split|Fullscreen|Pin|Drag)" | rofi -dmenu -i -p "Window Management" -no-custom
+            ;;
+        *"Kanata"*)
+            show_kanata_keymaps | rofi -dmenu -i -p "Kanata Keys" -no-custom
             ;;
         *"Workspaces")
             show_keymaps | grep -E "(Workspace|Special)" | rofi -dmenu -i -p "Workspace Keys" -no-custom
