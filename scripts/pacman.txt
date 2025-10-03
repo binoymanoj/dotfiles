@@ -1,0 +1,111 @@
+# Pacman Applications
+# Author: Binoy Manoj
+
+# Essentials
+git
+curl
+wget
+unzip
+zip
+tmux
+base-devel
+zsh
+polkit-gnome
+pacman-contrib
+
+# Hyprland Core & Dependencies
+kitty
+#waybar
+hyprland 
+ttf-jetbrains-mono-nerd
+noto-fonts-emoji
+xdg-desktop-portal-hyprland
+hyprpaper
+hyprsunset
+hypridle
+hyprlock
+hyprpicker
+
+# Development
+neovim
+docker
+docker-compose
+
+# Wayland Tools
+wl-clipboard
+cliphist
+grim
+slurp
+rofi-wayland
+rofi-emoji
+
+# Audio & Video
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+alsa-utils 
+wireplumber
+pavucontrol
+playerctl
+
+# Brightness Control
+brightnessctl
+
+# File Managers & System Tools
+nautilus
+gnome-system-monitor
+
+# Bluetooth
+bluez
+bluez-utils
+blueman
+
+# Network
+networkmanager
+nm-connection-editor
+network-manager-applet
+
+# Fonts
+
+# Utilities
+jq
+polkit
+xdg-utils
+
+# Archive Tools
+unrar
+
+# KDE Connect
+kdeconnect
+
+# Password Manager
+keepassxc
+
+
+# System Info
+fastfetch
+btop
+
+# CyberSecurity
+nmap
+wireshark-qt
+
+# Others
+obs-studio
+mpv
+libnotify
+imagemagick
+zoxide
+zathura
+ufw
+plocate
+fzf
+yazi
+fwupd
+exfat-utils
+ntfs-3g
+power-profiles-daemon
+skim
+nwg-look 
+yt-dlp 

@@ -1,0 +1,23 @@
+# Yay Applications (AUR)
+# Author: Binoy Manoj
+
+# Essentials
+
+# Hyprland Ecosystem
+ags-hyprpanel-git
+
+# Browsers & Communication
+brave-bin
+
+# Tools
+bibata-cursor-theme
+juno-ocean-gtk-theme-git
+
+# Music Player
+g4music-git
+
+# CyberSecurity
+burpsuite
+
+# Development
+nvm
