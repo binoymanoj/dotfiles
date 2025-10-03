@@ -28,6 +28,7 @@ show_main_menu() {
     echo "󰒓 Task Manager"
     echo "󰍉 Search"
     echo "󰖟 Bookmarks"
+    echo "󰈙 Books"
     echo "󰌌 Keybinds"
     echo "󰋗 About"
     echo "󰐥 System"
@@ -250,20 +251,17 @@ detect_browser() {
 # Sync bookmarks from Brave (tab-separated file: Title <TAB> URL)
 sync_bookmarks() {
     mkdir -p "$BOOKMARKS_DIR"
-
     BRAVE_BOOKMARKS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Bookmarks"
     if [ ! -f "$BRAVE_BOOKMARKS" ]; then
         notify-send "Bookmarks" "Brave bookmarks file not found!"
         return
     fi
-
     # Produce TAB-separated lines: Title<TAB>URL
     # - use // "" to avoid null names, gsub to remove tabs from names
     jq -r '.. | objects
              | select(.type == "url")
              | ( (.name // "") | gsub("\t"; " ") ) + "\t" + .url
            ' "$BRAVE_BOOKMARKS" > "$BOOKMARKS_FILE"
-
     BOOKMARK_COUNT=$(wc -l < "$BOOKMARKS_FILE" | tr -d ' ')
     notify-send "Bookmarks" "Synced $BOOKMARK_COUNT bookmarks from Brave"
 }
@@ -271,7 +269,6 @@ sync_bookmarks() {
 # Show bookmarks menu (uses arrays to map display -> URL)
 show_bookmarks() {
     mkdir -p "$BOOKMARKS_DIR"
-
     if [ ! -f "$BOOKMARKS_FILE" ]; then
         ACTION=$(echo -e "󰓦 Sync Bookmarks from Browser" | rofi -dmenu -i -p "Bookmarks")
         if [[ "$ACTION" == *"Sync"* ]]; then
@@ -280,10 +277,8 @@ show_bookmarks() {
         fi
         return
     fi
-
     # Read lines into array
     mapfile -t _lines < "$BOOKMARKS_FILE"
-
     # Build display array and url array in parallel
     display_lines=()
     urls=()
@@ -299,21 +294,17 @@ show_bookmarks() {
         display_lines+=("$display_name")
         urls+=("$url")
     done
-
     # Prepend sync option
     MENU=$(printf "%s\n" "󰓦 Sync Bookmarks from Browser" "${display_lines[@]}")
-
     SELECTION=$(echo -e "$MENU" | rofi -dmenu -i -p "Bookmarks")
     if [ -z "$SELECTION" ]; then
         return
     fi
-
     if [[ "$SELECTION" == *"Sync Bookmarks"* ]]; then
         sync_bookmarks
         show_bookmarks
         return
     fi
-
     # Find selected index (first match). This will pick the first duplicate if there are duplicates.
     found_index=-1
     for i in "${!display_lines[@]}"; do
@@ -322,7 +313,6 @@ show_bookmarks() {
             break
         fi
     done
-
     if [ "$found_index" -ge 0 ]; then
         FOUND_URL="${urls[$found_index]}"
         BROWSER_CMD=$(detect_browser)
@@ -338,6 +328,53 @@ show_bookmarks() {
         notify-send "Bookmarks" "Opening bookmark"
     else
         notify-send "Bookmarks" "Could not find URL for bookmark"
+    fi
+}
+
+# Books menu - Open PDFs with rofi instead of fzf
+show_books() {
+    # Find all PDFs in the specified directories
+    PDFS=$(find ~/CyberSec/Books ~/Documents/Books ~/Development/Books -mindepth 1 -maxdepth 1 -name "*.pdf" 2>/dev/null)
+    
+    if [ -z "$PDFS" ]; then
+        notify-send "Books" "No PDF files found in book directories"
+        return
+    fi
+    
+    # Create a formatted list with just filenames (remove paths for display)
+    PDF_LIST=$(echo "$PDFS" | while read -r pdf; do
+        basename "$pdf"
+    done)
+    
+    # Show rofi menu
+    SELECTED=$(echo "$PDF_LIST" | rofi -dmenu -i -p "📚 Select PDF to open")
+    
+    if [ -z "$SELECTED" ]; then
+        return
+    fi
+    
+    # Find the full path of the selected PDF
+    FULL_PATH=$(echo "$PDFS" | grep "/$SELECTED$")
+    
+    if [ -n "$FULL_PATH" ]; then
+        # Check if zathura is available
+        if command -v zathura >/dev/null 2>&1; then
+            zathura "$FULL_PATH" &
+            notify-send "Books" "Opening $SELECTED"
+        elif command -v evince >/dev/null 2>&1; then
+            evince "$FULL_PATH" &
+            notify-send "Books" "Opening $SELECTED"
+        elif command -v okular >/dev/null 2>&1; then
+            okular "$FULL_PATH" &
+            notify-send "Books" "Opening $SELECTED"
+        elif command -v xdg-open >/dev/null 2>&1; then
+            xdg-open "$FULL_PATH" &
+            notify-send "Books" "Opening $SELECTED"
+        else
+            notify-send "Books" "No PDF viewer found. Please install zathura, evince, or okular"
+        fi
+    else
+        notify-send "Books" "Error: Could not find selected PDF"
     fi
 }
 
@@ -398,6 +435,9 @@ case "$CHOICE" in
         ;;
     *"Bookmarks")
         show_bookmarks
+        ;;
+    *"Books")
+        show_books
         ;;
     *"Keybinds")
         show_keybinds
