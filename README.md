@@ -18,7 +18,7 @@
 
 <div align="center">
 <img src="screenshots/desktop-overview.png" alt="Desktop Overview" width="800"/>
-<p><em>Complete desktop setup with Archlinux + Hyprland + Hyprpanel</em></p>
+<p><em>Complete desktop setup with Archlinux + Hyprland</em></p>
 </div>
 
 ## 🖼️ More Screenshots
@@ -27,6 +27,8 @@
 <img src="screenshots/control-center1.png" alt="Main Menu" width="600"/>
 
 <img src="screenshots/control-center2.png" alt="Main Menu" width="600"/>
+
+<img src="screenshots/control-center3.png" alt="Main Menu" width="600"/>
 
 ### 🖥️ Terminal
 <img src="screenshots/kitty-terminal-preview.png" alt="Kitty" width="600"/>
