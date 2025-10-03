@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Hyprland System Menu
 # Author: Binoy Manoj
 # GitHub: https://github.com/binoymanoj
@@ -29,6 +30,8 @@ show_main_menu() {
     echo "󰍉 Search"
     echo "󰖟 Bookmarks"
     echo "󰈙 Books"
+    echo "󱡶 Services"
+    echo "󰲌 Projects"
     echo "󰌌 Keybinds"
     echo "󰋗 About"
     echo "󰐥 System"
@@ -136,7 +139,7 @@ show_performance() {
 
 # WiFi menu
 show_wifi() {
-    ACTION=$(echo -e "󰖩 Connect/Disconnect\n󰖩 Turn On\n󰖪 Turn Off\n󰑓 Restart" | rofi -dmenu -i -p "WiFi")
+    ACTION=$(echo -e "󰖩 Connect/Disconnect\n󰖩 Turn On\n󰖪 Turn Off\n󰑓Restart" | rofi -dmenu -i -p "WiFi")
     
     case "$ACTION" in
         *"Connect/Disconnect")
@@ -331,7 +334,7 @@ show_bookmarks() {
     fi
 }
 
-# Books menu - Open PDFs with rofi instead of fzf
+# Books menu - Open PDFs with rofi 
 show_books() {
     # Find all PDFs in the specified directories
     PDFS=$(find ~/CyberSec/Books ~/Documents/Books ~/Development/Books -mindepth 1 -maxdepth 1 -name "*.pdf" 2>/dev/null)
@@ -375,6 +378,111 @@ show_books() {
         fi
     else
         notify-send "Books" "Error: Could not find selected PDF"
+    fi
+}
+
+# Services menu
+show_services() {
+    # List of services to manage
+    SERVICE=$(echo -e "󰒃 UFW\n󰌌 Kanata\n󰛳 Tailscale\n󰣀 SSH\n󰕾 PulseAudio\n󰖟 NetworkManager\n󰂯 Bluetooth\n󰍹 GDM" | rofi -dmenu -i -p "Services")
+    
+    if [ -z "$SERVICE" ]; then
+        return
+    fi
+    
+    # Extract service name
+    case "$SERVICE" in
+        *"UFW")
+            SERVICE_NAME="ufw"
+            ;;
+        *"Kanata")
+            SERVICE_NAME="kanata"
+            ;;
+        *"Tailscale")
+            SERVICE_NAME="tailscaled"
+            ;;
+        *"SSH")
+            SERVICE_NAME="sshd"
+            ;;
+        *"PulseAudio")
+            SERVICE_NAME="pulseaudio"
+            ;;
+        *"NetworkManager")
+            SERVICE_NAME="NetworkManager"
+            ;;
+        *"GDM")
+            SERVICE_NAME="gdm"
+            ;;
+        *"Bluetooth")
+            SERVICE_NAME="bluetooth"
+            ;;
+        *)
+            return
+            ;;
+    esac
+    
+    # Check current status
+    if systemctl is-active --quiet "$SERVICE_NAME"; then
+        STATUS="Active"
+        ACTION=$(echo -e "󰓛 Stop\n󰑓 Restart\n󰋗 Status" | rofi -dmenu -i -p "$SERVICE_NAME ($STATUS)")
+    else
+        STATUS="Inactive"
+        ACTION=$(echo -e "󰐊 Start\n󰋗 Status" | rofi -dmenu -i -p "$SERVICE_NAME ($STATUS)")
+    fi
+    
+    case "$ACTION" in
+        *"Start")
+            $TERMINAL -e bash -c "sudo systemctl start $SERVICE_NAME; echo 'Service started. Press enter to close...'; read"
+            notify-send "Services" "$SERVICE_NAME started"
+            ;;
+        *"Stop")
+            $TERMINAL -e bash -c "sudo systemctl stop $SERVICE_NAME; echo 'Service stopped. Press enter to close...'; read"
+            notify-send "Services" "$SERVICE_NAME stopped"
+            ;;
+        *"Restart")
+            $TERMINAL -e bash -c "sudo systemctl restart $SERVICE_NAME; echo 'Service restarted. Press enter to close...'; read"
+            notify-send "Services" "$SERVICE_NAME restarted"
+            ;;
+        *"Status")
+            $TERMINAL -e bash -c "sudo systemctl status $SERVICE_NAME; read -p 'Press enter to close...'"
+            ;;
+    esac
+}
+
+# Projects menu
+show_projects() {
+    # Find directories using rofi instead of fzf
+    DIRS=$(find ~/Codes ~/Codes/* ~/Codes/*/* ~/Development -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|^$HOME/||")
+    
+    if [ -z "$DIRS" ]; then
+        notify-send "Projects" "No directories found"
+        return
+    fi
+    
+    # Show rofi menu
+    SELECTED=$(echo "$DIRS" | rofi -dmenu -i -p "📁 Select Project Directory")
+    
+    if [ -z "$SELECTED" ]; then
+        return
+    fi
+    
+    # Add home path back
+    SELECTED_PATH="$HOME/$SELECTED"
+    SELECTED_NAME=$(basename "$SELECTED_PATH" | tr . _)
+    
+    # Open in terminal with nvim
+    if [ -d "$SELECTED_PATH" ]; then
+        # Check if we're in tmux
+        if [[ -n $TMUX ]]; then
+            # Create new tmux window
+            tmux new-window -c "$SELECTED_PATH" -n "$SELECTED_NAME" "nvim ."
+        else
+            # Open terminal with nvim
+            $TERMINAL --working-directory="$SELECTED_PATH" -e nvim . &
+        fi
+        notify-send "Projects" "Opening $SELECTED_NAME in nvim"
+    else
+        notify-send "Projects" "Error: Directory not found"
     fi
 }
 
@@ -438,6 +546,12 @@ case "$CHOICE" in
         ;;
     *"Books")
         show_books
+        ;;
+    *"Services")
+        show_services
+        ;;
+    *"Projects")
+        show_projects
         ;;
     *"Keybinds")
         show_keybinds
