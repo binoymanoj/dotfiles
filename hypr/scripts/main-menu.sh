@@ -193,11 +193,14 @@ EOF
     esac
 }
 
-# Update menu
+# Update menu - ENHANCED
 show_update() {
-    MANAGER=$(echo -e "󰏖 Pacman\n󰣇 Yay" | rofi -dmenu -i -p "Update with")
+    MANAGER=$(echo -e "󰏖 Pacman\n󰣇 Yay\n󰚰 All Packages (Pacman & Yay)" | rofi -dmenu -i -p "Update with")
     
     case "$MANAGER" in
+        *"All Packages"*)
+            $TERMINAL -e bash -c "echo 'Updating all packages...'; yay -Syu --noconfirm; echo 'Update complete!'; read -p 'Press enter to close...'"
+            ;;
         *"Pacman")
             $TERMINAL -e bash -c "sudo pacman -Syu --noconfirm; read -p 'Press enter to close...'"
             ;;
@@ -207,33 +210,126 @@ show_update() {
     esac
 }
 
-# Remove menu
+# Remove menu - ENHANCED with PWA support
 show_remove() {
-    PACKAGE=$(pacman -Qq | rofi -dmenu -i -p "Remove package")
+    MANAGER=$(echo -e "󰏖 System Package\n󰖟 PWA (Web App)" | rofi -dmenu -i -p "Remove")
     
-    if [ -n "$PACKAGE" ]; then
-        if pacman -Qm | grep -q "^$PACKAGE "; then
-            $TERMINAL -e bash -c "yay -R $PACKAGE; read -p 'Press enter to close...'"
-        else
-            $TERMINAL -e bash -c "sudo pacman -R $PACKAGE; read -p 'Press enter to close...'"
-        fi
-    fi
+    case "$MANAGER" in
+        *"System Package")
+            PACKAGE=$(pacman -Qq | rofi -dmenu -i -p "Remove package")
+            
+            if [ -n "$PACKAGE" ]; then
+                if pacman -Qm | grep -q "^$PACKAGE "; then
+                    $TERMINAL -e bash -c "yay -R $PACKAGE; read -p 'Press enter to close...'"
+                else
+                    $TERMINAL -e bash -c "sudo pacman -R $PACKAGE; read -p 'Press enter to close...'"
+                fi
+            fi
+            ;;
+        *"PWA"*)
+            # Find all PWA desktop files
+            PWA_DIR="$HOME/.local/share/applications"
+            if [ ! -d "$PWA_DIR" ]; then
+                notify-send "PWA Remove" "No PWA applications found"
+                return
+            fi
+            
+            # List all desktop files and extract PWA apps (those with browser --app flag)
+            PWA_LIST=$(find "$PWA_DIR" -name "*.desktop" -type f -exec grep -l "app=" {} \; 2>/dev/null | while read -r file; do
+                APP_NAME=$(grep "^Name=" "$file" | cut -d'=' -f2)
+                if [ -n "$APP_NAME" ]; then
+                    echo "$APP_NAME|$file"
+                fi
+            done)
+            
+            if [ -z "$PWA_LIST" ]; then
+                notify-send "PWA Remove" "No PWA applications found"
+                return
+            fi
+            
+            # Show PWA list in rofi
+            SELECTED=$(echo "$PWA_LIST" | cut -d'|' -f1 | rofi -dmenu -i -p "Select PWA to remove")
+            
+            if [ -n "$SELECTED" ]; then
+                # Find the desktop file path
+                DESKTOP_FILE=$(echo "$PWA_LIST" | grep "^$SELECTED|" | cut -d'|' -f2)
+                
+                if [ -n "$DESKTOP_FILE" ] && [ -f "$DESKTOP_FILE" ]; then
+                    # Extract icon name
+                    ICON_NAME=$(grep "^Icon=" "$DESKTOP_FILE" | cut -d'=' -f2)
+                    
+                    # Confirm deletion
+                    CONFIRM=$(echo -e "Yes\nNo" | rofi -dmenu -i -p "Remove $SELECTED?")
+                    
+                    if [ "$CONFIRM" = "Yes" ]; then
+                        # Remove desktop file
+                        rm -f "$DESKTOP_FILE"
+                        
+                        # Remove icon if it's a custom PWA icon
+                        if [ -n "$ICON_NAME" ] && [ "$ICON_NAME" != "web-browser" ]; then
+                            ICON_DIR="$HOME/.local/share/icons/hicolor/256x256/apps"
+                            if [ -f "$ICON_DIR/$ICON_NAME.png" ]; then
+                                rm -f "$ICON_DIR/$ICON_NAME.png"
+                            fi
+                        fi
+                        
+                        # Update icon cache
+                        if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+                            gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor 2>/dev/null
+                        fi
+                        
+                        # Update desktop database
+                        if command -v update-desktop-database >/dev/null 2>&1; then
+                            update-desktop-database "$PWA_DIR" 2>/dev/null
+                        fi
+                        
+                        notify-send "PWA Removed" "$SELECTED has been removed successfully"
+                    fi
+                else
+                    notify-send "PWA Remove" "Error: Desktop file not found"
+                fi
+            fi
+            ;;
+    esac
 }
 
 # Performance menu
 show_performance() {
-    PROFILE=$(echo -e "󰓅 Performance\n󰾅 Balanced\n󰾆 Power Saver" | rofi -dmenu -i -p "Power Profile")
+    # Get current power profile
+    CURRENT=$(powerprofilesctl get)
+    
+    # Build menu with active indicator
+    MENU=""
+    if [ "$CURRENT" = "performance" ]; then
+        MENU+="󰓅 Performance (Active)\n"
+    else
+        MENU+="󰓅 Performance\n"
+    fi
+    
+    if [ "$CURRENT" = "balanced" ]; then
+        MENU+="󰾅 Balanced (Active)\n"
+    else
+        MENU+="󰾅 Balanced\n"
+    fi
+    
+    if [ "$CURRENT" = "power-saver" ]; then
+        MENU+="󰾆 Power Saver (Active)"
+    else
+        MENU+="󰾆 Power Saver"
+    fi
+    
+    PROFILE=$(echo -e "$MENU" | rofi -dmenu -i -p "Power Profile")
     
     case "$PROFILE" in
-        *"Performance")
+        *"Performance"*)
             powerprofilesctl set performance
             notify-send "Power Profile" "Switched to Performance mode"
             ;;
-        *"Balanced")
+        *"Balanced"*)
             powerprofilesctl set balanced
             notify-send "Power Profile" "Switched to Balanced mode"
             ;;
-        *"Power Saver")
+        *"Power Saver"*)
             powerprofilesctl set power-saver
             notify-send "Power Profile" "Switched to Power Saver mode"
             ;;
@@ -460,7 +556,7 @@ show_books() {
 
 # TUI Apps menu - ENHANCED with descriptions and more tools
 show_tui() {
-    TUI_APP=$(echo -e "󰡨 LazyDocker (Docker TUI)\n󰒍 yazi (File Manager)\n󱂬 CAVA (Music Visualizer)\n󰚝 btop (System Monitor)\n󰅬 acpi (Battery Health)\n󰅬 ncdu (Disk Usage Analyzer)\n󱂬 lazygit (Git TUI)\n󰩟 nmon (Performance Monitor)\n󰒋 htop (Process Viewer)\n󰖟 nethogs (Network Monitor)\n󰒍 ranger (File Manager)\n󰆼 gotop (System Monitor)\n󰩨 glances (System Monitor)\n󰙨 iftop (Network Bandwidth)\n󰓾 iotop (I/O Monitor)\n󰒓 ctop (Container Monitor)\n󰹑 s-tui (CPU Stress Test)" | rofi -dmenu -i -p "TUI Apps")
+    TUI_APP=$(echo -e "󰡨 LazyDocker (Docker TUI)\n󰒍 yazi (File Manager)\n󰚝 btop (System Monitor)\n󰅬 acpi (Battery Health)\n󰅬 ncdu (Disk Usage Analyzer)\n󱂬 lazygit (Git TUI)\n󰩟 nmon (Performance Monitor)\n󰒋 htop (Process Viewer)\n󰖟 nethogs (Network Monitor)\n󰒍 ranger (File Manager)\n󰆼 gotop (System Monitor)\n󰩨 glances (System Monitor)\n󰙨 iftop (Network Bandwidth)\n󰓾 iotop (I/O Monitor)\n󰒓 ctop (Container Monitor)\n󰹑 s-tui (CPU Stress Test)" | rofi -dmenu -i -p "TUI Apps")
     
     case "$TUI_APP" in
         *"LazyDocker"*)
@@ -475,13 +571,6 @@ show_tui() {
                 $TERMINAL -e yazi
             else
                 notify-send "TUI Apps" "yazi not installed\nInstall: yay -S yazi"
-            fi
-            ;;
-        *"CAVA"*)
-            if command -v cava >/dev/null 2>&1; then
-                $TERMINAL -e cava
-            else
-                notify-send "TUI Apps" "cava not installed\nInstall: sudo pacman -S cava"
             fi
             ;;
         *"btop"*)
