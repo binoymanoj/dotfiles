@@ -23,7 +23,6 @@ show_keymaps() {
 󰜉 SUPER + R → Smart Run/Search
 󰇘 ALT + R → Rofi Run Commands
 󰖯 ALT + TAB → Window Switcher
-󱂬 SUPER + W → Workflow Launcher
 󰌾 SUPER + SHIFT + P → KeePassXC
 󰐥 SUPER + SHIFT + Q → Power Menu
 󰅖 SUPER + V → Clipboard History
