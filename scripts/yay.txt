@@ -21,3 +21,4 @@ burpsuite
 
 # Development
 nvm
+kanata
