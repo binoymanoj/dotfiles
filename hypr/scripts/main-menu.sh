@@ -338,7 +338,7 @@ show_performance() {
 
 # WiFi menu
 show_wifi() {
-    ACTION=$(echo -e "󰖩 Connect/Disconnect\n󰖩 Turn On\n󰖪 Turn Off\n󰑓Restart" | rofi -dmenu -i -p "WiFi")
+    ACTION=$(echo -e "󰖩 Connect/Disconnect\n󰖩 Turn On\n󰖪 Turn Off\n󰑓 Restart" | rofi -dmenu -i -p "WiFi")
     
     case "$ACTION" in
         *"Connect/Disconnect")
@@ -378,9 +378,20 @@ show_bluetooth() {
     
     case "$ACTION" in
         *"Connect/Disconnect")
-            DEVICE=$(bluetoothctl devices | rofi -dmenu -i -p "Select Device")
+            # Build device list with connection status
+            DEVICE_LIST=$(bluetoothctl devices | sed 's/Device //' | while read -r line; do
+                MAC=$(echo "$line" | awk '{print $1}')
+                NAME=$(echo "$line" | cut -d' ' -f2-)
+                if bluetoothctl info "$MAC" | grep -q "Connected: yes"; then
+                    echo "$MAC $NAME (Connected)"
+                else
+                    echo "$MAC $NAME"
+                fi
+            done)
+            
+            DEVICE=$(echo "$DEVICE_LIST" | rofi -dmenu -i -p "Select Device")
             if [ -n "$DEVICE" ]; then
-                MAC=$(echo "$DEVICE" | awk '{print $2}')
+                MAC=$(echo "$DEVICE" | awk '{print $1}')
                 if bluetoothctl info "$MAC" | grep -q "Connected: yes"; then
                     bluetoothctl disconnect "$MAC"
                     notify-send "Bluetooth" "Disconnected from device"
