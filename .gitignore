@@ -54,6 +54,7 @@
 !tmux/
 !tmux/*
 tmux/plugins
+!vimium-config*.json
 !waybar/
 !waybar/*
 !waybar/*/*

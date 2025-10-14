@@ -1,0 +1,36 @@
+{
+	"name": "Vimium C",
+	"@time": "10/14/2025, 5:42:58 PM",
+	"time": 1760443978397,
+	"environment": {
+		"extension": "2.12.2",
+		"platform": "linux",
+		"chromium": 141
+	},
+	"exclusionRules": [
+		{
+			"passKeys": "",
+			"pattern": ":https://mail.google.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://www.boot.dev/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://ap-southeast-5.console.aws.amazon.com/"
+		}
+	],
+	"keyLayout": 2,
+	"userDefinedCss": [
+		".LH {",
+		"  border: 0;",
+		"  background-image: none !important;",
+		"  background-color: #BFC3C4 !important;",
+		"  border-radius: 2px;",
+		"  color: #000000;",
+		"}",
+		""
+	],
+	"vimSync": true
+}
