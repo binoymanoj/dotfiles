@@ -57,8 +57,11 @@ set_wallpaper() {
 # GitHub: https://github.com/binoymanoj
 # Last Updated: $(date '+%Y-%m-%d')
 
-preload = ${relative_path}
-wallpaper = ,${relative_path}
+wallpaper {
+    monitor = eDP-1
+    path = ${relative_path}
+    fit_mode = cover
+}
 EOF
     
     # Reload hyprpaper
