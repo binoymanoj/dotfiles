@@ -175,7 +175,7 @@ animations {
 
 # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
 dwindle {
-    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+    # pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
 }
 
@@ -190,7 +190,7 @@ misc {
     force_default_wallpaper = 0 # Set to 0 or 1 to disable the anime mascot wallpapers
     focus_on_activate = true
     disable_hyprland_logo = true # If true disables the random hyprland logo / anime girl background. :(
-    vfr = true    # lower the amount of sent frames when nothing is happening on-screen
+    # vfr = true    # lower the amount of sent frames when nothing is happening on-screen
 }
 
 
@@ -268,7 +268,7 @@ bind = $mainMod, E, exec, $fileManager          # file manager
 bind = $mainMod, Z, togglefloating,             # floating
 bind = $mainMod, P, pseudo,                     # dwindle
 bind = $mainMod CTRL, P, pin                    # pin current window
-bind = $mainMod SHIFT, I, togglesplit,          # toggle split positions
+# bind = $mainMod SHIFT, I, togglesplit,          # toggle split positions
 bind = $mainMod, F, fullscreen                  # toggle fullscreen
 bind = $mainMod SHIFT, F, fullscreen, 1         # toggle maximize (keeps gaps and bar)
 bind = $mainMod, period, exec, rofi -show emoji       # Emoji menu

@@ -1,0 +1,11 @@
+-- Load all modules
+require("core.monitors")
+require("core.autostart")
+require("core.env")
+require("core.look")
+require("core.animations")
+require("core.layouts")
+require("core.misc")
+require("core.input")
+require("core.keybinds")
+require("core.rules")
