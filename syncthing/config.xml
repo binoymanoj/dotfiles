@@ -1,5 +1,0 @@
-<gui enabled="true" tls="false" debugging="false">
-    <address>127.0.0.1:8384</address>
-    <!-- <user>your_username</user> -->
-    <!-- <password>hashed_password</password> -->
-</gui>
