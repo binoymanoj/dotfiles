@@ -51,6 +51,8 @@
 !scripts/*/*
 !swaylock/
 !swaylock/*
+!syncthing/
+!syncthing/*
 !tmux/
 !tmux/*
 tmux/plugins
