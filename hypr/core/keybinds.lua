@@ -1,6 +1,6 @@
 local mainMod = "SUPER"
 local terminal = "kitty"
-local browser = "brave"
+local browser = "helium-browser"
 local fileManager = "nautilus"
 local musicPlayer = "spotify" -- adjust if needed
 

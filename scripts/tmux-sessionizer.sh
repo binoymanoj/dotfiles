@@ -13,7 +13,7 @@ fi
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/ ~/.config ~/Bounty ~/Codes ~/Codes/* ~/CyberSec ~/Development ~/Documents ~/Downloads ~/Music ~/Notes ~/Pictures ~/Tools ~/Videos -mindepth 1 -maxdepth 1 -type d | \
+    selected=$(find ~/ ~/.config ~/Bounty ~/Codes ~/Codes/* ~/Codes/*/* ~/CyberSec ~/Development ~/Documents ~/Downloads ~/Music ~/Notes ~/Pictures ~/Tools ~/Videos -mindepth 1 -maxdepth 1 -type d | \
         sed "s|^$HOME/||" | \
         fzf \
             --height=100% \

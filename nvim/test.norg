@@ -1,0 +1,92 @@
+= My Neorg Test File
+Author: Binoy
+Created: 2026-05-20
+
+This is a basic paragraph in Norg.
+
+== Text Formatting
+
+*bold*
+/italic/
+_underline_
+- strikethrough -
+!spoiler!
+
+Combination:
+/bold and italic/
+
+== Lists
+
+- Milk
+- Eggs
+- Coffee
+
+~ First item
+~ Second item
+~ Third item
+
+== Nested Lists
+
+- Fruits
+  - Apple
+  - Banana
+  - Mango
+
+== Tasks
+
+- ( ) Incomplete task
+- (x) Completed task
+- (!) Important task
+- (-) Cancelled task
+
+== Quotes
+
+> This is a quote block.
+> Multiple lines work too.
+
+== Code Block
+
+@code lua
+local message = "Hello from Neorg"
+print(message)
+@end
+
+== Links
+
+{https://neovim.io}[Neovim Website]
+
+== Definitions
+
+$ Term
+This is the definition of the term.
+
+== Tables
+
+| Name  | Role            | Tech        |
+|------- |---------------- |-------------|
+| Binoy | Full Stack Dev  | TypeScript  |
+| Neo   | Linux User      | Arch Linux  |
+
+== Headings
+
+* Heading Level 1
+** Heading Level 2
+*** Heading Level 3
+
+== Journal Entry
+
+@document.meta
+title: Daily Notes
+description: Testing Neorg parser
+authors: Binoy
+categories: test
+@end
+
+== Final Section
+
+If syntax highlighting works correctly, then:
+- headings should highlight
+- code blocks should render
+- tasks should show symbols
+- formatting should conceal properly
+

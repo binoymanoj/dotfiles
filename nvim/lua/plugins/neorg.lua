@@ -1,0 +1,9 @@
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
+-- Neorg: Plugin for Note-taking (org mode)
+return {
+  "nvim-neorg/neorg",
+  lazy = false,    -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+  version = "*",   -- Pin Neorg to the latest stable release
+  config = true,
+}

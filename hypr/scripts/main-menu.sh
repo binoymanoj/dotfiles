@@ -7,7 +7,7 @@
 # Terminal to use
 TERMINAL="kitty"
 # Browser to use
-BROWSER="brave"
+BROWSER="helium-browser"
 # Bookmarks directory
 BOOKMARKS_DIR="$HOME/Documents/"
 BOOKMARKS_FILE="$BOOKMARKS_DIR/bookmarks.txt"

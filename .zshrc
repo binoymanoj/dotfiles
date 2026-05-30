@@ -396,6 +396,9 @@ alias posting='cd "$(find ~/Codes/api-collection -mindepth 1 -maxdepth 1 -type d
 # Tailscale's taildrop (get command for receiving files from other devices)
 alias taildropget='sudo tailscale file get .'
 
+# Secondary Neovim config (Kickstart)
+alias nvk='NVIM_APPNAME=kickstart nvim'
+
 # Run Tmux on terminal open (commented out for now, sometimes it gets annoying. It opens default session on every terminal opened. Might need in the future)
 # if command -v tmux &> /dev/null; then
 #   if [[ -z "$TMUX" ]] && [[ -z "$SSH_TTY" ]]; then
