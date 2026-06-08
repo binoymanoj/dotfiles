@@ -39,31 +39,31 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
-    "format": "<span color='#cba6f7'>󰻠</span> {usage}%",
+    "format": "󰻠 {usage}%",
     "interval": 2,
     "tooltip": true,
     "tooltip-format": "CPU: {usage}%\nLoad: {load}"
   },
   "memory": {
-    "format": "<span color='#cba6f7'>󰍛</span> {percentage}%",
+    "format": "󰍛 {percentage}%",
     "interval": 2,
     "tooltip": true,
     "tooltip-format": "Used: {used:0.1f}GB / {total:0.1f}GB"
   },
   "network": {
-    "format": "<span color='#cba6f7'>󰇚</span> {bandwidthDownBytes}",
+    "format": "󰖩 {bandwidthDownBytes}",
     "format-disconnected": "<span color='#f38ba8'>󰖪</span>",
     "interval": 1,
     "tooltip": true,
     "tooltip-format": "{essid} ({signalStrength}%)\n{ipaddr}",
     "tooltip-format-disconnected": "Disconnected",
-    "on-click-right": "nm-applet"
+    "on-click": "nm-connection-editor"
   },
   "bluetooth": {
-    "format": "<span color='#cba6f7'>󰂯</span>",
+    "format": "󰂯",
     "format-disabled": "<span color='#555'>󰂲</span>",
     "format-off": "<span color='#555'>󰂲</span>",
-    "format-connected": "<span color='#cba6f7'>󰂱</span>",
+    "format-connected": "󰂱",
     "tooltip": true,
     "tooltip-format": "{controller_alias}\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
@@ -77,23 +77,23 @@
       "critical": 10
     },
     "format": "{icon} {capacity}%",
-    "format-charging": "<span color='#cba6f7'>󰂄</span> {capacity}%",
-    "format-plugged": "<span color='#cba6f7'>󰂄</span> {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
     "format-icons": [
       "<span color='#f38ba8'>󰁺</span>",
       "<span color='#f9e2af'>󰁻</span>",
       "<span color='#f9e2af'>󰁼</span>",
-      "<span color='#cba6f7'>󰁽</span>",
-      "<span color='#cba6f7'>󰁾</span>",
-      "<span color='#cba6f7'>󰁿</span>",
-      "<span color='#cba6f7'>󰂀</span>",
-      "<span color='#cba6f7'>󰂁</span>",
-      "<span color='#cba6f7'>󰂂</span>",
-      "<span color='#cba6f7'>󰁹</span>"
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
     ]
   },
   "custom/notification": {
-    "format": "<span color='#cba6f7'>󰂚</span>",
+    "format": "󰂚",
     "on-click": "swaync-client -t -sw",
     "tooltip": false
   }
