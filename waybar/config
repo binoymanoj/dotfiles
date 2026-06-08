@@ -13,15 +13,16 @@
     "clock"
   ],
   "modules-right": [
+    "network#speed",
     "cpu",
     "memory",
-    "network",
+    "network#wifi",
     "bluetooth",
     "battery",
     "custom/notification"
   ],
   "custom/arch": {
-    "format": "",
+    "format": "",
     "tooltip": false
   },
   "hyprland/workspaces": {
@@ -31,7 +32,7 @@
     "on-click": "activate"
   },
   "hyprland/window": {
-    "max-length": 60,
+    "max-length": 30,
     "separate-outputs": true
   },
   "clock": {
@@ -39,22 +40,28 @@
     "tooltip": true,
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
+  "network#speed": {
+    "format": " {bandwidthDownBytes}",
+    "format-disconnected": "",
+    "interval": 1,
+    "tooltip": false
+  },
   "cpu": {
-    "format": "󰻠 {usage}%",
+    "format": " {usage}%",
     "interval": 2,
     "tooltip": true,
     "tooltip-format": "CPU: {usage}%\nLoad: {load}"
   },
   "memory": {
-    "format": "󰍛 {percentage}%",
+    "format": " {percentage}%",
     "interval": 2,
     "tooltip": true,
     "tooltip-format": "Used: {used:0.1f}GB / {total:0.1f}GB"
   },
-  "network": {
-    "format": "󰖩 {bandwidthDownBytes}",
-    "format-disconnected": "<span color='#f38ba8'>󰖪</span>",
-    "interval": 1,
+  "network#wifi": {
+    "format": "󰓙",
+    "format-disconnected": "<span color='#f38ba8'>󰠀</span>",
+    "interval": 5,
     "tooltip": true,
     "tooltip-format": "{essid} ({signalStrength}%)\n{ipaddr}",
     "tooltip-format-disconnected": "Disconnected",
@@ -81,20 +88,20 @@
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": "󰂄 {capacity}%",
     "format-icons": [
-      "<span color='#f38ba8'>󰁺</span>",
-      "<span color='#f9e2af'>󰁻</span>",
-      "<span color='#f9e2af'>󰁼</span>",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
+      "<span color='#f38ba8'>󰃺</span>",
+      "<span color='#f9e2af'>󰃻</span>",
+      "<span color='#f9e2af'>󰃼</span>",
+      "󰃽",
+      "󰃾",
+      "󰃿",
+      "󰄀",
+      "󰄁",
+      "󰄂",
+      "󰃹"
     ]
   },
   "custom/notification": {
-    "format": "󰂚",
+    "format": "󰆚",
     "on-click": "swaync-client -t -sw",
     "tooltip": false
   }

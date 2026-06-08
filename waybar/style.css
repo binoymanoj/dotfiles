@@ -22,11 +22,11 @@ window#waybar {
 }
 
 #workspaces {
-    padding: 0 4px;
+    padding: 0 2px;
 }
 
 #workspaces button {
-    padding: 0 7px;
+    padding: 0 5px;
     color: #555;
     background: transparent;
     box-shadow: none;
@@ -46,7 +46,7 @@ window#waybar {
 }
 
 #window {
-    padding: 0 8px;
+    padding: 0 4px;
     color: #888;
 }
 
@@ -62,14 +62,16 @@ window#waybar {
 #cpu,
 #memory,
 #network,
+#network.speed,
+#network.wifi,
 #bluetooth,
 #battery {
-    padding: 0 8px;
+    padding: 0 6px;
     color: #e0dfe0;
 }
 
 #custom-notification {
-    padding: 0 14px 0 8px;
+    padding: 0 14px 0 6px;
     color: #e0dfe0;
 }
 
@@ -89,7 +91,6 @@ window#waybar {
 #network.disconnected {
     color: #f38ba8;
 }
-
 
 /* ── Tooltips ─────────────────────────────── */
 
