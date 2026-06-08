@@ -61,17 +61,21 @@ window#waybar {
 #memory,
 #network,
 #bluetooth,
-#battery,
-#custom-notification {
+#battery {
     padding: 0 8px;
     color: #e0dfe0;
 }
 
-#battery.warning {
+#custom-notification {
+    padding: 0 14px 0 8px;
+    color: #e0dfe0;
+}
+
+#battery.warning:not(.charging) {
     color: #f9e2af;
 }
 
-#battery.critical {
+#battery.critical:not(.charging) {
     color: #f38ba8;
     animation-name: blink;
     animation-duration: 0.6s;
@@ -84,9 +88,6 @@ window#waybar {
     color: #f38ba8;
 }
 
-#custom-notification {
-    padding-right: 14px;
-}
 
 /* ── Tooltips ─────────────────────────────── */
 
