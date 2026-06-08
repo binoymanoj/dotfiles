@@ -37,7 +37,6 @@ window#waybar {
     color: #e0dfe0;
     text-decoration: underline;
     text-decoration-color: #cba6f7;
-    text-underline-offset: 3px;
 }
 
 #workspaces button:hover {
