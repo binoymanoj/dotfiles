@@ -7,184 +7,100 @@
 }
 
 window#waybar {
-    background: transparent;
-    color: #cdd6f4;
+    background: #232338;
+    color: #e0dfe0;
+}
+
+/* ── Left ─────────────────────────────────── */
+
+#custom-arch {
+    color: #cba6f7;
+    font-size: 16px;
+    padding: 0 10px 0 14px;
 }
 
 #workspaces {
-    background-color: rgba(17, 17, 27, 0.6);
-    border-radius: 10px;
-    margin: 5px;
-    padding: 0 5px;
+    padding: 0 4px;
 }
 
 #workspaces button {
-    padding: 5px;
-    color: #6c7086;
-    margin: 0 3px;
-    border-radius: 10px;
-    transition: all 0.2s ease;
+    padding: 0 7px;
+    color: #555;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    box-shadow: none;
+    text-shadow: none;
 }
 
 #workspaces button.active {
-    color: #cba6f7;
-    background: rgba(30, 30, 46, 0.6);
+    color: #e0dfe0;
+    border-bottom: 2px solid #cba6f7;
 }
 
 #workspaces button:hover {
-    background: rgba(30, 30, 46, 0.4);
-    color: #cdd6f4;
+    background: transparent;
+    color: #e0dfe0;
+    box-shadow: none;
 }
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#custom-night-light,
-#custom-caffeine,
-#network,
-#bluetooth,
-#pulseaudio,
-#custom-calendar,
-#custom-power,
-#tray {
-    background-color: rgba(17, 17, 27, 0.6);
-    padding: 0 10px;
-    margin: 5px 0;
-    border-radius: 10px;
-    transition: all 0.2s ease;
-    margin-right: 5px;
+#window {
+    padding: 0 8px;
+    color: #888;
 }
+
+/* ── Center ───────────────────────────────── */
 
 #clock {
-    color: #f5e0dc;
+    padding: 0 8px;
+    color: #e0dfe0;
 }
 
-#custom-calendar {
-    color: #f5e0dc;
-    margin-left: 0;
-    border-radius: 10px;
+/* ── Right ────────────────────────────────── */
+
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#battery,
+#custom-notification {
+    padding: 0 8px;
+    color: #e0dfe0;
 }
 
-#battery {
-    color: #a6e3a1;
-}
-
-#battery.warning:not(.charging) {
+#battery.warning {
     color: #f9e2af;
 }
 
-#battery.critical:not(.charging) {
+#battery.critical {
     color: #f38ba8;
     animation-name: blink;
-    animation-duration: 0.5s;
+    animation-duration: 0.6s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-}
-
-#cpu {
-    color: #89b4fa;
-}
-
-#memory {
-    color: #cba6f7;
-}
-
-#network {
-    color: #94e2d5;
-    min-width: 85px;
 }
 
 #network.disconnected {
     color: #f38ba8;
 }
 
-#custom-night-light {
-    color: #cba6f7;
+#custom-notification {
     padding-right: 14px;
 }
 
-#custom-night-light.on {
-    color: #f9e2af;
-}
-
-#custom-night-light.off {
-    color: #89b4fa;
-}
-
-#bluetooth {
-    color: #89b4fa;
-}
-
-#bluetooth.disabled,
-#bluetooth.off {
-    color: #6c7086;
-}
-
-#pulseaudio {
-    color: #89dceb;
-}
-
-#pulseaudio.muted {
-    color: #f38ba8;
-}
-
-#tray {
-    background-color: rgba(17, 17, 27, 0.6);
-}
-
-#custom-power {
-    color: #f38ba8;
-    margin-right: 5px;
-    padding-right: 12px;
-}
-
-#custom-power:hover {
-    background-color: rgba(243, 139, 168, 0.2);
-    color: #f38ba8;
-}
-
-@keyframes blink {
-    to {
-        background-color: #f38ba8;
-        color: rgb(17, 17, 27);
-    }
-}
+/* ── Tooltips ─────────────────────────────── */
 
 tooltip {
-    background: rgba(17, 17, 27, 0.95);
-    border: 1px solid #313244;
-    border-radius: 10px;
+    background: #11111b;
+    border: 1px solid #2a2a45;
+    border-radius: 6px;
 }
 
 tooltip label {
-    color: #cdd6f4;
+    color: #e0dfe0;
+    padding: 2px 4px;
 }
 
-#custom-caffeine {
-    background-color: rgba(17, 17, 27, 0.6);
-    padding: 0 10px;
-    padding-right: 12px;
-    margin: 5px 0;
-    border-radius: 10px;
-    transition: all 0.2s ease;
-    margin-right: 5px;
-    color: #f9e2af;
-}
-
-#custom-caffeine.off {
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-    border-radius: 0;
-    margin-right: 0;
-}
-
-#custom-caffeine.off {
-    min-width: 0;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    opacity: 0;
+@keyframes blink {
+    to { opacity: 0.4; }
 }
