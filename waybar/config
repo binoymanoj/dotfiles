@@ -1,160 +1,100 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
-  "spacing": 0,
+  "height": 36,
+  "exclusive": true,
   "modules-left": [
+    "custom/arch",
     "hyprland/workspaces",
     "hyprland/window"
   ],
   "modules-center": [
-    "clock",
-    "custom/calendar"
+    "clock"
   ],
   "modules-right": [
-    "custom/night-light",
-    "custom/caffeine",
-    "bluetooth",
-    "pulseaudio",
-    "network",
     "cpu",
     "memory",
-    "tray",
+    "network",
+    "bluetooth",
     "battery",
-    "custom/power"
+    "custom/notification"
   ],
+  "custom/arch": {
+    "format": "",
+    "tooltip": false
+  },
   "hyprland/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "10",
-      "urgent": "",
-      "focused": "",
-      "default": ""
-    }
+    "format": "{id}",
+    "on-click": "activate"
+  },
+  "hyprland/window": {
+    "max-length": 60,
+    "separate-outputs": true
   },
   "clock": {
-    "format": " {:%I:%M %p | %b %d}",
+    "format": "{:%I:%M %p | %d %a}",
     "tooltip": true,
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
-  "custom/calendar": {
-    "format": "",
-    "on-click": "swaync-client -t -sw",
-    "tooltip": false
-  },
-  "custom/night-light": {
-    "exec": "~/.config/hypr/scripts/night-light.sh status",
-    "return-type": "json",
-    "interval": 1,
-    "on-click": "~/.config/hypr/scripts/night-light.sh toggle",
-    "on-scroll-up": "~/.config/hypr/scripts/night-light.sh increase",
-    "on-scroll-down": "~/.config/hypr/scripts/night-light.sh decrease",
-    "tooltip": true
-  },
-  "custom/caffeine": {
-    "exec": "~/.config/hypr/scripts/caffeine.sh status",
-    "return-type": "json",
-    "interval": 1,
-    "on-click": "~/.config/hypr/scripts/caffeine.sh toggle",
-    "tooltip": true
-  },
   "cpu": {
-    "format": "󰻠 {usage}%",
-    "interval": 1,
+    "format": "<span color='#cba6f7'>󰻠</span> {usage}%",
+    "interval": 2,
     "tooltip": true,
-    "tooltip-format": "󰻠 Usage: {usage}%\n Load: {load}\n Freq: {avg_frequency}GHz"
+    "tooltip-format": "CPU: {usage}%\nLoad: {load}"
   },
   "memory": {
-    "format": "󰍛 {percentage}%",
-    "interval": 1,
+    "format": "<span color='#cba6f7'>󰍛</span> {percentage}%",
+    "interval": 2,
     "tooltip": true,
-    "tooltip-format": "󰍛 Used: {used:0.1f}GB/{total:0.1f}GB\n󰍛 Swap: {swapUsed:0.1f}GB/{swapTotal:0.1f}GB"
-  },
-  "battery": {
-    "interval": 1,
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon} {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": "󰂄 {capacity}%",
-    "format-icons": [
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
-    ]
-  },
-  "bluetooth": {
-    "format": "󰂯 {status}",
-    "format-disabled": "󰂲",
-    "format-off": "󰂲",
-    "format-connected": "󰂱 {num_connections}",
-    "tooltip-format": "{controller_alias}\n{num_connections} connected",
-    "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias} ({device_battery_percentage}%)",
-    "on-click": "bluetoothctl power toggle",
-    "on-click-right": "blueman-manager"
+    "tooltip-format": "Used: {used:0.1f}GB / {total:0.1f}GB"
   },
   "network": {
-    "format": "{icon} {bandwidthDownBytes}",
-    "format-disconnected": "󰖪",
-    "format-icons": {
-      "wifi": "󰖩",
-      "ethernet": "󰈀",
-      "disconnected": "󰖪"
-    },
-    "tooltip-format": "Connected to {essid}\nIP: {ipaddr}",
+    "format": "<span color='#cba6f7'>󰇚</span> {bandwidthDownBytes}",
+    "format-disconnected": "<span color='#f38ba8'>󰖪</span>",
     "interval": 1,
+    "tooltip": true,
+    "tooltip-format": "{essid} ({signalStrength}%)\n{ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
     "on-click-right": "nm-applet"
   },
-  "pulseaudio": {
-    "format": "{icon} {volume}%{format_source}",
-    "format-bluetooth": "󰂰 {volume}%{format_source}",
-    "format-muted": "󰖁{format_source}",
-    "format-source": "",
-    "format-source-muted": " <span color='#f38ba8'>󰍭</span>",
-    "format-icons": {
-      "headphone": "󰋋",
-      "hands-free": "󰄝",
-      "headset": "󰋎",
-      "phone": "󰄜",
-      "portable": "󰄝",
-      "car": "󰄋",
-      "default": [
-        "󰕿",
-        "󰖀",
-        "󰕾"
-      ]
+  "bluetooth": {
+    "format": "<span color='#cba6f7'>󰂯</span>",
+    "format-disabled": "<span color='#555'>󰂲</span>",
+    "format-off": "<span color='#555'>󰂲</span>",
+    "format-connected": "<span color='#cba6f7'>󰂱</span>",
+    "tooltip": true,
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "blueman-manager"
+  },
+  "battery": {
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
     },
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-click-right": "pavucontrol"
+    "format": "{icon} {capacity}%",
+    "format-charging": "<span color='#cba6f7'>󰂄</span> {capacity}%",
+    "format-plugged": "<span color='#cba6f7'>󰂄</span> {capacity}%",
+    "format-icons": [
+      "<span color='#f38ba8'>󰁺</span>",
+      "<span color='#f9e2af'>󰁻</span>",
+      "<span color='#f9e2af'>󰁼</span>",
+      "<span color='#cba6f7'>󰁽</span>",
+      "<span color='#cba6f7'>󰁾</span>",
+      "<span color='#cba6f7'>󰁿</span>",
+      "<span color='#cba6f7'>󰂀</span>",
+      "<span color='#cba6f7'>󰂁</span>",
+      "<span color='#cba6f7'>󰂂</span>",
+      "<span color='#cba6f7'>󰁹</span>"
+    ]
   },
-  "tray": {
-    "icon-size": 18,
-    "spacing": 10
-  },
-  "custom/power": {
-    "format": "⏻",
-    "on-click": "~/.config/hypr/scripts/power-menu.sh",
+  "custom/notification": {
+    "format": "<span color='#cba6f7'>󰂚</span>",
+    "on-click": "swaync-client -t -sw",
     "tooltip": false
   }
 }
