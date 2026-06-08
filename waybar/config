@@ -42,26 +42,26 @@
     "on-click": "swaync-client -t -sw"
   },
   "network#speed": {
-    "format": "󰇚 {bandwidthDownBytes}",
+    "format": "<span size='large'>󰇚</span> {bandwidthDownBytes}",
     "format-disconnected": "",
     "interval": 1,
     "tooltip": false
   },
   "cpu": {
-    "format": "󰻠 {usage}%",
+    "format": "<span size='large'>󰻠</span> {usage}%",
     "interval": 2,
     "tooltip": true,
     "tooltip-format": "CPU: {usage}%\nLoad: {load}"
   },
   "memory": {
-    "format": "󰍛 {percentage}%",
+    "format": "<span size='large'>󰍛</span> {percentage}%",
     "interval": 2,
     "tooltip": true,
     "tooltip-format": "Used: {used:0.1f}GB / {total:0.1f}GB"
   },
   "network#wifi": {
-    "format": "󰖩",
-    "format-disconnected": "<span color='#f38ba8'>󰖩</span>",
+    "format": "<span size='large'>󰖩</span>",
+    "format-disconnected": "<span color='#f38ba8'><span size='large'>󰖩</span></span>",
     "interval": 5,
     "tooltip": true,
     "tooltip-format": "{essid} ({signalStrength}%)\n{ipaddr}",
@@ -69,10 +69,10 @@
     "on-click": "nm-connection-editor"
   },
   "bluetooth": {
-    "format": "󰂯",
-    "format-disabled": "<span color='#555'>󰂲</span>",
-    "format-off": "<span color='#555'>󰂲</span>",
-    "format-connected": "󰂱",
+    "format": "<span size='large'>󰂯</span>",
+    "format-disabled": "<span color='#555'><span size='large'>󰂲</span></span>",
+    "format-off": "<span color='#555'><span size='large'>󰂲</span></span>",
+    "format-connected": "<span size='large'>󰂱</span>",
     "tooltip": true,
     "tooltip-format": "{controller_alias}\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
@@ -86,23 +86,23 @@
       "critical": 10
     },
     "format": "{icon} {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": "󰂄 {capacity}%",
+    "format-charging": "<span size='large'>󰂄</span> {capacity}%",
+    "format-plugged": "<span size='large'>󰂄</span> {capacity}%",
     "format-icons": [
-      "<span color='#f38ba8'>󰁺</span>",
-      "<span color='#f9e2af'>󰁻</span>",
-      "<span color='#f9e2af'>󰁼</span>",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
+      "<span color='#f38ba8'><span size='large'>󰁺</span></span>",
+      "<span color='#f9e2af'><span size='large'>󰁻</span></span>",
+      "<span color='#f9e2af'><span size='large'>󰁼</span></span>",
+      "<span size='large'>󰁽</span>",
+      "<span size='large'>󰁾</span>",
+      "<span size='large'>󰁿</span>",
+      "<span size='large'>󰂀</span>",
+      "<span size='large'>󰂁</span>",
+      "<span size='large'>󰂂</span>",
+      "<span size='large'>󰁹</span>"
     ]
   },
   "custom/notification": {
-    "format": "󰂚",
+    "format": "<span size='large'>󰂚</span>",
     "on-click": "swaync-client -t -sw",
     "tooltip": false
   }
