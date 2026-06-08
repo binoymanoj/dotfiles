@@ -2,6 +2,7 @@
   "layer": "top",
   "position": "top",
   "height": 36,
+  "margin": "8px 8px 0 8px",
   "exclusive": true,
   "modules-left": [
     "custom/arch",
