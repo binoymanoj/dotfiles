@@ -1,0 +1,152 @@
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+}
+
+:root {
+  --cc-bg: #232338;
+  --noti-border-color: #2a2a45;
+  --noti-bg: 30, 30, 54;
+  --noti-bg-alpha: 1.0;
+  --noti-bg-darker: #1a1a2e;
+  --noti-bg-hover: #2a2a45;
+  --noti-bg-focus: rgba(42, 42, 69, 0.6);
+  --noti-close-bg: rgba(203, 166, 247, 0.15);
+  --noti-close-bg-hover: rgba(203, 166, 247, 0.3);
+  --text-color: #e0dfe0;
+  --text-color-disabled: #555577;
+  --bg-selected: #cba6f7;
+  --border-radius: 8px;
+  --font-size-body: 12px;
+  --font-size-summary: 13px;
+}
+
+notificationwindow,
+blankwindow {
+  background: transparent;
+}
+
+.floating-notifications .notification-row .notification-background .notification {
+  background: #232338;
+  border: 1px solid #2a2a45;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  margin: 4px;
+}
+
+.control-center {
+  background: #232338;
+  border: 1px solid #2a2a45;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.widget-title > label {
+  color: #cba6f7;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.widget-title > button {
+  background: rgba(203, 166, 247, 0.1);
+  color: #cba6f7;
+  border: 1px solid #2a2a45;
+  border-radius: 6px;
+}
+
+.widget-title > button:hover {
+  background: rgba(203, 166, 247, 0.2);
+}
+
+.widget-dnd label {
+  font-size: 0.95rem;
+}
+
+.widget-dnd switch:checked {
+  background: #cba6f7;
+}
+
+.widget-dnd switch slider {
+  background: #e0dfe0;
+}
+
+.widget-mpris .widget-mpris-player {
+  border-radius: 10px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay {
+  background-color: rgba(35, 35, 56, 0.85);
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
+  color: #e0dfe0;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle {
+  color: #888;
+}
+
+.close-button {
+  background: var(--noti-close-bg);
+  color: #cba6f7;
+}
+
+.close-button:hover {
+  background: var(--noti-close-bg-hover);
+}
+
+.notification-default-action,
+.notification-action {
+  color: #e0dfe0;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  background: #2a2a45;
+}
+
+.notification .text-box .summary {
+  color: #e0dfe0;
+}
+
+.notification .text-box .time {
+  color: #555577;
+}
+
+.notification .text-box .body {
+  color: #aaa;
+}
+
+progressbar trough {
+  background: #2a2a45;
+  border-radius: 4px;
+}
+
+progressbar progress {
+  background: #cba6f7;
+  border-radius: 4px;
+}
+
+.widget-calendar {
+  color: #e0dfe0;
+}
+
+.widget-calendar calendar {
+  background: transparent;
+  color: #e0dfe0;
+}
+
+.widget-calendar calendar:selected {
+  background: #cba6f7;
+  color: #1e1e36;
+  border-radius: 4px;
+}
+
+.widget-calendar calendar.header {
+  color: #cba6f7;
+  font-weight: bold;
+}
+
+.widget-calendar calendar:indeterminate {
+  color: #444466;
+}
