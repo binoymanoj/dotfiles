@@ -39,7 +39,7 @@
     "format": "{:%I:%M %p | %d %a}",
     "tooltip": true,
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "on-click": "swaync-client -t -sw"
+    "on-click": "gsimplecal"
   },
   "network#speed": {
     "format": "<span size='large'>󰇚</span> {bandwidthDownBytes}",

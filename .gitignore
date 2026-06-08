@@ -49,6 +49,8 @@
 !scripts/
 !scripts/*
 !scripts/*/*
+!gsimplecal/
+!gsimplecal/*
 !swaylock/
 !swaylock/*
 !swaync/
