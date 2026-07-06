@@ -10,17 +10,17 @@ local function insert_react_component_template()
     "",
     "export default ComponentName"
   }
-  
+
   -- Get current cursor position
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  
+
   -- Insert the template at cursor position
   vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, lines)
-  
+
   -- Move cursor to first placeholder (ComponentName) and select it
-  vim.api.nvim_win_set_cursor(0, {row, 6}) -- Position after "const "
-  vim.cmd("normal! viw") -- Select the word "ComponentName"
-  
+  vim.api.nvim_win_set_cursor(0, { row, 6 }) -- Position after "const "
+  vim.cmd("normal! viw")                     -- Select the word "ComponentName"
+
   -- Set up tab navigation to export default line
   -- vim.keymap.set("i", "<Tab>", function()
   --   -- Exit insert mode first
@@ -44,7 +44,7 @@ local mappings = {
     ["<M-y>"] = { "ggVG", desc = "Select entire buffer" },
     ["<Leader><Tab>"] = { ":bnext<CR>", desc = "Next buffer" },
     ["YF"] = { "va{Vy", desc = "Select entire function" },
-    ["<Leader>rc"] = { insert_react_component_template, desc = "Insert React component template" },
+    -- ["<Leader>rc"] = { insert_react_component_template, desc = "Insert React component template" },
     ["<Leader>="] = {
       function()
         local line = vim.api.nvim_get_current_line()

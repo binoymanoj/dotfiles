@@ -16,6 +16,7 @@ return {
         "astro",
         "go",
         -- "typst",
+        -- norg/norg_meta parsers installed via lazy-rocks, not nvim-treesitter
       },
     },
   },

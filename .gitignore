@@ -25,6 +25,8 @@
 !kanata/*
 !kitty/
 !kitty/*
+!mpd/
+!mpd/*
 !mpv/
 !mpv/*
 !mako/
@@ -43,6 +45,8 @@
 !qutebrowser/
 !qutebrowser/*
 !qutebrowser/*/*
+!rmpc/
+!rmpc/*
 !rofi/
 !rofi/*
 !rofi/*/*

@@ -1,60 +1,60 @@
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 11px;
-    font-weight: 600;
-    min-height: 0;
+	border: none;
+	border-radius: 0;
+	font-family: "JetBrainsMono Nerd Font";
+	font-size: 12px;
+	font-weight: 600;
+	min-height: 0;
 }
 
 window#waybar {
-    background: #232338;
-    color: #e0dfe0;
-    border-radius: 10px;
+	background: #232338;
+	color: #e0dfe0;
+	border-radius: 10px;
 }
 
 /* ── Left ─────────────────────────────────── */
 
 #custom-arch {
-    color: #cba6f7;
-    font-size: 13px;
-    padding: 0 10px 0 14px;
+	color: #cba6f7;
+	font-size: 13px;
+	padding: 0 10px 0 14px;
 }
 
 #workspaces {
-    padding: 0 2px;
+	padding: 0 2px;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    color: #555;
-    background: transparent;
-    box-shadow: none;
-    text-shadow: none;
+	padding: 0 3px;
+	color: #555;
+	background: transparent;
+	box-shadow: none;
+	text-shadow: none;
 }
 
 #workspaces button.active {
-    color: #e0dfe0;
-    text-decoration: underline;
-    text-decoration-color: #cba6f7;
+	color: #e0dfe0;
+	text-decoration: underline;
+	text-decoration-color: #cba6f7;
 }
 
 #workspaces button:hover {
-    background: transparent;
-    color: #e0dfe0;
-    box-shadow: none;
+	background: transparent;
+	color: #e0dfe0;
+	box-shadow: none;
 }
 
 #window {
-    padding: 0 4px;
-    color: #888;
+	padding: 0 4px;
+	color: #888;
 }
 
 /* ── Center ───────────────────────────────── */
 
 #clock {
-    padding: 0 8px;
-    color: #e0dfe0;
+	padding: 0 8px;
+	color: #e0dfe0;
 }
 
 /* ── Right ────────────────────────────────── */
@@ -66,45 +66,47 @@ window#waybar {
 #network.wifi,
 #bluetooth,
 #battery {
-    padding: 0 6px;
-    color: #e0dfe0;
+	padding: 0 6px;
+	color: #e0dfe0;
 }
 
 #custom-notification {
-    padding: 0 14px 0 6px;
-    color: #e0dfe0;
+	padding: 0 14px 0 6px;
+	color: #e0dfe0;
 }
 
 #battery.warning:not(.charging) {
-    color: #f9e2af;
+	color: #f9e2af;
 }
 
 #battery.critical:not(.charging) {
-    color: #f38ba8;
-    animation-name: blink;
-    animation-duration: 0.6s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+	color: #f38ba8;
+	animation-name: blink;
+	animation-duration: 0.6s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
 #network.disconnected {
-    color: #f38ba8;
+	color: #f38ba8;
 }
 
 /* ── Tooltips ─────────────────────────────── */
 
 tooltip {
-    background: #11111b;
-    border: 1px solid #2a2a45;
-    border-radius: 6px;
+	background: #11111b;
+	border: 1px solid #2a2a45;
+	border-radius: 6px;
 }
 
 tooltip label {
-    color: #e0dfe0;
-    padding: 2px 4px;
+	color: #e0dfe0;
+	padding: 2px 4px;
 }
 
 @keyframes blink {
-    to { opacity: 0.4; }
+	to {
+		opacity: 0.4;
+	}
 }

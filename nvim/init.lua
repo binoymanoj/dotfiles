@@ -20,6 +20,18 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+-- Expose lazy-rocks treesitter parsers to nvim's rtp (lazy adds them to
+-- package.cpath only; vim.treesitter.language.add needs them on rtp)
+do
+  local rocks = vim.fn.stdpath("data") .. "/lazy-rocks"
+  for _, rock in ipairs({ "tree-sitter-norg", "tree-sitter-norg-meta" }) do
+    local p = rocks .. "/" .. rock .. "/lib/lua/5.1"
+    if vim.uv.fs_stat(p) then
+      vim.opt.rtp:append(p)
+    end
+  end
+end
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 5
 
